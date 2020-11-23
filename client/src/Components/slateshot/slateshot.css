@@ -67,7 +67,7 @@ label{
 }
 .icons:hover,.icons1:hover,.icons2:hover{
     background-color:blue;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 .username{
     font-weight: bold;
@@ -90,7 +90,6 @@ label{
     padding: 4px;
 }
 .btn1:hover{
-    cursor: pointer;
     background-color:rgb(27, 114, 78);
 }
 .label:hover{

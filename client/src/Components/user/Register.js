@@ -55,14 +55,14 @@ const Register = props=>{
                     name="firstname"
                     value={user.firstname}
                     onChange={onChange}
-                    className="form-control mt-2"
+                    className="form-control mt-2 mx-auto col-6"
                     placeholder="Enter FirstName" />
                  <label htmlFor="middlename" className="sr-only">middlename </label>
                 <input type="text"
                     name="middlename"
                     value={user.middlename}
                     onChange={onChange}
-                    className="form-control  mt-2"
+                    className="form-control  mt-2 mx-auto col-6"
                     placeholder="Enter MiddleName" />
 
                 <label htmlFor="lastname" className="sr-only">lastname </label>
@@ -70,28 +70,28 @@ const Register = props=>{
                     name="lastname"
                     value={user.lastname}
                     onChange={onChange}
-                    className="form-control  mt-2"
+                    className="form-control  mt-2 mx-auto col-6"
                     placeholder="Enter lastname" />
                 <label htmlFor="username" className="sr-only">Username: </label>
                 <input type="text" 
                        name="username" 
                        value={user.username}
                        onChange={onChange} 
-                       className="form-control mt-2" 
+                       className="form-control mt-2 mx-auto col-6" 
                        placeholder="Enter Username"/>
                 <label htmlFor="password" className="sr-only">Password: </label>
                 <input type="password" 
                        name="password"
                        value={user.password} 
                        onChange={onChange} 
-                       className="form-control mt-2" 
+                       className="form-control mt-2 mx-auto col-6" 
                        placeholder="Enter Password"/>
                  <label htmlFor="email" className="sr-only">email </label>
                 <input type="text"
                     name="email"
                     value={user.email}
                     onChange={onChange}
-                    className="form-control  mt-2"
+                    className="form-control  mt-2 mx-auto col-6"
                     placeholder="Enter email" />
                     <label htmlFor="email" className="sr-only">Confirm email </label>
                     {showerr!==""?showerr:''}
@@ -99,14 +99,16 @@ const Register = props=>{
                     name="confirmemail"
                     value={confirmemail}
                     onChange={(e)=>setconfirmEmail(e.target.value)}
-                    className="form-control  mt-2"
+                    className="form-control  mt-2 mx-auto col-6"
                     placeholder="Confirm email" />
                      <label htmlFor="radio" className="sr-only">Gender</label>
+                     <div className='mx-auto col-6'>
                Male <input type="radio" onChange={onChange} value="male" name="gender" className='mr-3' />
                Female <input type="radio" onChange={onChange} value="female" name="gender" />
+               </div>
 
                 
-                <button className="btn btn-lg btn-primary btn-block" 
+                <button className="btn btn-lg btn-primary btn-block mx-auto col-6" 
                         type="submit">Register</button>
             </form>
         </div>

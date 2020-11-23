@@ -1,28 +1,54 @@
-import React, { useState } from 'react'
-
+import React, { useState,useContext } from 'react'
+import axios from 'axios';
+import {AuthContext} from '../../../Context/AuthContext';
 function Index(props) {
+    const authContext = useContext(AuthContext);
     const [handle, sethandle] = useState(false)
+    const [photo, setPhoto] = useState(null)
+    const [video, setVideo] = useState(null)
+  
+    const style = {
+
+        main:{
+            height: props.height,
+            width: props.width,
+            minWidth:'160px',
+            minHeight:'220px',
+        }
+    }
+   
+    const user = authContext.user
+
+    axios.get(`http://localhost:3000/uploads/${user.username}/picture.jpg`).then((response) => {
+        setPhoto(`/uploads/${user.username}/picture.jpg`)
+    }).catch((error) => {
+        setPhoto(`/uploads/default/picture.jpg`)
+    })
+    axios.get(`http://localhost:3000/uploads/${user.username}/video.mp4`).then((response) => {
+        setVideo(`/uploads/${user.username}/video.mp4`)
+    }).catch((error) => {
+        setVideo(null)
+    })
     const handleClick = (e) => {
+        if(e.target.src!==undefined){
         sethandle(!handle)
+        try{
         handle ? e.target.pause() : e.target.play()
+        }
+        catch(err){}
     }
-    let obj={
-        height:'180px',
-        width:'160px'
-    }
-    if(props.width!=''){
-        obj.width = props.width
-        obj.height = props.height
-    }
+}
     return (
-        <div className='slateshot'>
-        <div className="slateshot__video">
+        <div className='slateshot' style={style.main}>
+        {/* {console.log('path',getPath)} */}
+        <div>
             <video
-                poster={props.srcImg}
-                height={obj.height}
-                width={obj.width}
+                poster={photo}
+                height='175px'
+                width='100%'
+                // style={{ maxWidth: props.width, maxHeight: props.height }}
                 onClick={handleClick}>
-                <source src={props.srcVideo} type="video/mp4">
+                <source src={`/uploads/${user.username}/video.mp4`} type="video/mp4">
                 </source>
             </video>
         </div>

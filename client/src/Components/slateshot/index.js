@@ -1,5 +1,6 @@
 import React, {useState,useContext,useEffect} from 'react'
 import './slateshot.css'
+
 import Profile from './Profile'
 import Edit from './Edit'
 import Thumbnail from './Thumbnail'
@@ -24,8 +25,7 @@ function Index(props) {
                  <Edit username={props.username}
                             height={props.height}
                             width={props.width}
-                            srcImg={props.srcImg}
-                            srcVideo={props.srcVideo} /></Route>}
+                            /></Route>}
                       
                     <Route path={`/thumbnail`}>
                         <Thumbnail username={props.username}

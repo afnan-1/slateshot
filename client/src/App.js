@@ -8,27 +8,28 @@ import {
 } from "react-router-dom";
 import Register from './Components/user/Register';
 import Login from './Components/user/Login';
+import Dashboard from './Components/dashboard'
 import {AuthContext} from './Context/AuthContext';
 function App(props) {
   const authContext = useContext(AuthContext);
   return (
     <Router>
          <Navbar />
-      <div className="Slateshot__main">
-        <Slateshot username='afnan nadeem'
-          height="180px"
-          width="160px"
-          srcImg={`uploads/${authContext.user.username}/picture.jpg`}
-          viewType='edit'
-          srcVideo={`uploads/${authContext.user.username}/video.mp4`}
-          username={authContext.user.username} />
-      </div>
       <Route path='/register'>
         <Register />
       </Route>
       <Route path='/login'>
         <Login />
         </Route>
+      <Route exact path='/'>
+        <Dashboard />
+      </Route>
+
+      <Slateshot
+          height="180px"
+          width="160px"
+          viewType='edit'
+          username={authContext.user.username} />
     </Router>
   );
 }

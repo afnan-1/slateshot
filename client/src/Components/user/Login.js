@@ -28,22 +28,22 @@ const Login = props=>{
 
 
     return(
-        <div className='container'>
+        <div className='container m-auto'>
             <form onSubmit={onSubmit}>
-                <h3>Please sign in</h3>
+                <h3 className='m-auto col-6'>Slateshot sign in</h3>
                 <label htmlFor="username" className="sr-only">Username: </label>
                 <input type="text" 
                        name="username" 
                        onChange={onChange} 
-                       className="form-control mt-2" 
+                       className="form-control my-2 col-6 mx-auto" 
                        placeholder="Enter Username"/>
                 <label htmlFor="password" className="sr-only">Password: </label>
                 <input type="password" 
                        name="password" 
                        onChange={onChange} 
-                       className="form-control mt-2" 
+                       className="form-control col-6 my-2 mx-auto" 
                        placeholder="Enter Password"/>
-                <button className="btn btn-lg btn-primary btn-block mt-2" 
+                <button className="btn btn-lg btn-primary btn-block mt-2 col-6 m-auto" 
                         type="submit">Log in </button>
             </form>
         </div>
