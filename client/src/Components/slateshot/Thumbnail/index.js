@@ -5,14 +5,11 @@ import EditIcon from '@material-ui/icons/Edit';
 import {
     useHistory 
 } from "react-router-dom";
-function SsThumbnail(props) {
+function Index(props) {
     let history = useHistory()
     const [handle, sethandle] = useState(false)
     const [video,setVideo] = useState(React.createRef())
-//     const videoControl=(e)=>{
-// setVideo(e.target)
-   
-// }
+
 const handleClick = () => {
     sethandle(!handle)
     handle ? video.current.pause() : video.current.play()
@@ -25,10 +22,7 @@ const handleClick = () => {
         obj.width = props.width
         obj.height = props.height
     }
-
-
     return (
-
         <div className='slateshot'>
             <div className="slateshot__video">
                 <video
@@ -42,7 +36,7 @@ const handleClick = () => {
             </div>
             <div className="content">
             <div className="buttons">
-                    <PersonIcon className='icons' />
+                    <PersonIcon className='icons' onClick={()=> history.push('/profile')} />
                     <EditIcon className='icons2' onClick={()=> history.push('/edit')} />
                     <PlayArrowIcon className='icons1' onClick={handleClick} />
                 </div>
@@ -52,4 +46,4 @@ const handleClick = () => {
     )
 }
 
-export default SsThumbnail
+export default Index

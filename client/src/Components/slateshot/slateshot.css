@@ -3,6 +3,11 @@ video[poster]{
     width:160px; */
     object-fit: cover;
     }
+    .Slateshot__main{
+        display: flex;
+        background-color:whitesmoke;
+        justify-content: space-around;
+      }
 .slateshot{
     /* border: 3px black; */
     border-style:solid;
@@ -15,6 +20,9 @@ video[poster]{
     align-items: center;
     justify-content: center;
 }
+label{
+    margin-bottom: 0px !important;
+}
 .slateshot__video{
     /* margin-top:50px; */
     padding:5px;
@@ -22,7 +30,7 @@ video[poster]{
 }
 .icons{
     padding: 4px;
-    font-size: 1em !important;
+    font-size: 1.5em !important;
     border-radius: 5px 0px 0px 5px;
     color: white;
     border-style: solid;
@@ -32,7 +40,7 @@ video[poster]{
 }
 .icons1{
     padding: 4px;
-    font-size: 1em !important;
+    font-size: 1.5em !important;
     color: white;
     
     border-radius: 0px 5px 5px 0px;
@@ -40,7 +48,7 @@ video[poster]{
 }
 .icons2{
     padding: 4px;
-    font-size: 1em !important;
+    font-size: 1.5em !important;
     color: white;
     border-style: solid;
     border-width:0 1px 0 0;
@@ -79,10 +87,12 @@ video[poster]{
     color: white;
 }
 .btn__icon{
-    font-size: 1.5em !important;
     padding: 4px;
 }
 .btn1:hover{
     cursor: pointer;
     background-color:rgb(27, 114, 78);
+}
+.label:hover{
+    cursor: pointer;
 }

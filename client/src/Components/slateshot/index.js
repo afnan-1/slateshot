@@ -1,54 +1,49 @@
-import React, { useState } from 'react'
+import React, {useState,useContext,useEffect} from 'react'
 import './slateshot.css'
-import PersonIcon from '@material-ui/icons/Person';
-import EditIcon from '@material-ui/icons/Edit';
-import SsEdit from './Edit/SsEdit';
-import SsThumbnail from './slateshotThumbnail/SsThumbnail';
-import SsProfile from './Profile/SsProfile';
+import Profile from './Profile'
+import Edit from './Edit'
+import Thumbnail from './Thumbnail'
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link,
-    useHistory 
+    Route 
 } from "react-router-dom";
-function Slateshot(props) {
-    let history = useHistory()
-    // if(props.viewType==='edit'){
-    //     history.push('/edit')
-    // }
+import {AuthContext} from '../../Context/AuthContext';
+function Index(props) {
+    const {isAuthenticated} = useContext(AuthContext);
+    const [auth,setAuth] = useState(isAuthenticated)
+    useEffect(() => {
+        setAuth(isAuthenticated)
+    }, [isAuthenticated])
     return (
 
         <div>
-            <Router>
                 <Switch>
-                <Route path={`/edit`}>
-                        <SsEdit username={props.username}
+                    {console.log('auth',auth)}
+                {auth && <Route path='/edit'>
+                 <Edit username={props.username}
                             height={props.height}
                             width={props.width}
                             srcImg={props.srcImg}
-                            srcVideo={props.srcVideo} />
-                    </Route>
+                            srcVideo={props.srcVideo} /></Route>}
+                      
                     <Route path={`/thumbnail`}>
-                        <SsThumbnail username={props.username}
+                        <Thumbnail username={props.username}
                             height={props.height}
                             width={props.width}
                             srcImg={props.srcImg}
                             srcVideo={props.srcVideo} />
                     </Route>
                     <Route path={`/profile`}>
-                        <SsProfile username={props.username}
+                        <Profile username={props.username}
                             height={props.height}
                             width={props.width}
                             srcImg={props.srcImg}
                             srcVideo={props.srcVideo} />
                      </Route>
                 </Switch>
-
-            </Router>
-
         </div>
     )
 }
 
-export default Slateshot
+export default Index

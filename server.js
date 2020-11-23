@@ -2,9 +2,14 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 var cors = require('cors')
 const app = express();
+const cookieParser = require('cookie-parser')
+const moongose = require('mongoose');
+app.use(cookieParser());
+app.use(express.json());
 app.use(cors())
 app.use(fileUpload());
 
+moongose.connect('mongodb://localhost:27017/auth',{useNewUrlParser:true, useUnifiedTopology:true},()=> console.log('connect to database'));
 // Upload Endpoint
 app.post('/upload', (req, res) => {
   if (req.files === null) {
@@ -12,6 +17,8 @@ app.post('/upload', (req, res) => {
   }
 
   const file = req.files.file;
+  // const video = req.files.file;
+  console.log(file);
   // // const name = req.na
   // if (res.body!==undefined){
   //   console.log('name',res.body);
@@ -29,9 +36,6 @@ console.log(name);
       console.log("New directory successfully created.")
     }
   })
-
-  // const name = req.body.username
-  // console.log('asds',name)
   file.mv(`${__dirname}/client/public/uploads/${name}/${file.name}`, err => {
     if (err) {
       console.error(err);
@@ -52,5 +56,6 @@ else{
 }
   });
 });
-
+const userRouter = require('./routes/User')
+app.use('/user',userRouter)
 app.listen(5000, () => console.log('Server Started...'));

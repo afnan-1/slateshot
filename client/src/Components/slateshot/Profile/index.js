@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import PersonIcon from '@material-ui/icons/Person';
-import EditIcon from '@material-ui/icons/Edit';
-function SsProfile(props) {
+
+function Index(props) {
     const [handle, sethandle] = useState(false)
     const handleClick = (e) => {
         sethandle(!handle)
@@ -34,4 +33,4 @@ function SsProfile(props) {
     )
 }
 
-export default SsProfile
+export default Index
