@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import PersonIcon from '@material-ui/icons/Person';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import EditIcon from '@material-ui/icons/Edit';
@@ -13,8 +13,8 @@ function Index(props) {
     const [video, setVideo] = useState(null)
     let history = useHistory()
     const [handle, sethandle] = useState(false)
-    const [videoRef,setVideoRef] = useState(React.createRef())
-   
+    const [videoRef, setVideoRef] = useState(React.createRef())
+
     const style = {
 
         main: {
@@ -25,35 +25,38 @@ function Index(props) {
         }
     }
     const user = authContext.user
-
-    // const [getPathImg,setPathImg] = useState(false)
-    // const [getPathVideo,setPathVideo] = useState(false)
-
-    axios.get(`http://localhost:3000/uploads/${user.username}/picture.jpg`).then((response) => {
-        setPhoto(`/uploads/${user.username}/picture.jpg`)
-    }).catch((error) => {
-        setPhoto(`/uploads/default/picture.jpg`)
-    })
-    axios.get(`http://localhost:3000/uploads/${user.username}/video.mp4`).then((response) => {
-        setVideo(`/uploads/${user.username}/video.mp4`)
-    }).catch((error) => {
-        setVideo(null)
-    })
+    useEffect(() => {
+        async function fetchData() {
+            await axios.get(`http://localhost:3000/uploads/${user.username}/picture.jpg`).then((response) => {
+                setPhoto(`/uploads/${user.username}/picture.jpg`)
+            }).catch((error) => {
+                setPhoto(`/uploads/default/picture.jpg`)
+            })
+            await axios.get(`http://localhost:3000/uploads/${user.username}/video.mp4`).then((response) => {
+                setVideo(`/uploads/${user.username}/video.mp4`)
+            }).catch((error) => {
+                setVideo(null)
+            })
+        }
+        fetchData()
+    }, [photo, video])
+    const dumb=()=>{
+        
+    }
     const handleClick = () => {
         sethandle(!handle)
-            handle ? videoRef.current.pause() : videoRef.current.play()
+        handle ? videoRef.current.pause() : videoRef.current.play()
     }
     return (
         <div className='slateshot' style={style.main}>
-            {/* {console.log('path',getPath)} */}
             <div>
                 <video
                     poster={photo}
-                    height='145px'
+                    height='150'
                     width='100%'
                     ref={videoRef}
-                    // style={{ maxWidth: props.width, maxHeight: props.height }}
-                    onClick={handleClick}>
+                // style={{ maxWidth: props.width, maxHeight: props.height }}
+                >
                     <source src={`/uploads/${user.username}/video.mp4`} type="video/mp4">
                     </source>
                 </video>
@@ -62,7 +65,7 @@ function Index(props) {
                 <div className="buttons">
                     <PersonIcon className='icons' onClick={() => history.push('/profile')} />
                     <EditIcon className='icons2' onClick={() => history.push('/edit')} />
-                    <PlayArrowIcon className='icons1' onClick={handleClick} />
+                    <PlayArrowIcon className='icons1' onClick={video?handleClick:dumb} />
                 </div>
                 <span className="username">{props.username}</span>
             </div>

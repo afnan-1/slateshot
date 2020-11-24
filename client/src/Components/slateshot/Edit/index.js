@@ -1,15 +1,19 @@
-import React, { useState,useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import PersonIcon from '@material-ui/icons/Person';
 import axios from 'axios';
-import {AuthContext} from '../../../Context/AuthContext';
+import { AuthContext } from '../../../Context/AuthContext';
+import { useHistory } from 'react-router-dom';
 function Index(props) {
     const authContext = useContext(AuthContext);
+    const history = useHistory()
+    const {isAuthenticated} = useContext(AuthContext);
+    const [auth,setAuth] = useState(isAuthenticated)
     const style = {
-        main:{
+        main: {
             height: props.height,
             width: props.width,
-            minWidth:'160px',
-            minHeight:'220px',
+            minWidth: '160px',
+            minHeight: '220px',
         }
     }
 
@@ -20,33 +24,37 @@ function Index(props) {
     const [handle, sethandle] = useState(false)
     const [photo, setPhoto] = useState(null)
     const [video, setVideo] = useState(null)
-    const [uploadPercentage, setUploadPercentage] = useState(0);
-    // const [getPathImg,setPathImg] = useState(false)
-    // const [getPathVideo,setPathVideo] = useState(false)
 
-    axios.get(`http://localhost:3000/uploads/${user.username}/picture.jpg`).then((response) => {
-        setPhoto(`/uploads/${user.username}/picture.jpg`)
-    }).catch((error) => {
-        setPhoto(`/uploads/default/picture.jpg`)
-    })
-    axios.get(`http://localhost:3000/uploads/${user.username}/video.mp4`).then((response) => {
-        // setVideo(`/uploads/${user.username}/video.mp4`)
-    }).catch((error) => {
-        setVideo(null)
-    })
-
+    useEffect(() => {
+      
+        if (!isAuthenticated){
+            history.push("/login");
+        }
+        async function fetchData() {
+            await axios.get(`http://localhost:3000/uploads/${user.username}/picture.jpg`).then((response) => {
+                setPhoto(`/uploads/${user.username}/picture.jpg`)
+            }).catch((error) => {
+                setPhoto(`/uploads/default/picture.jpg`)
+            })
+            await axios.get(`http://localhost:3000/uploads/${user.username}/video.mp4`).then((response) => {
+                setVideo(`/uploads/${user.username}/video.mp4`)
+            }).catch((error) => {
+                setVideo(null)
+            })
+        }
+        fetchData()
+    }, [photo, video,isAuthenticated])
 
     const handleClick = (e) => {
-        if(e.target.src!==undefined){
+        if (e.target.src !== undefined) {
             sethandle(!handle)
-            try{
-            handle ? e.target.pause() : e.target.play()
+            try {
+                handle ? e.target.pause() : e.target.play()
             }
-            catch(err){}
+            catch (err) { }
         }
     }
-    const handlePhotoUpload = async(e) => {
-        console.log('picture');
+    const handlePhotoUpload = async (e) => {
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
         formData.append('name', props.username)
@@ -59,11 +67,11 @@ function Index(props) {
             const { fileName, filePath } = res.data;
             setPhoto(String(filePath).split('s/')[0] + 's/' + props.username + '/picture.jpg')
         } catch (err) {
-            console.log(err);
         }
     };
 
-    const handleVideoUpload = async(e) => {
+    const handleVideoUpload = async (e) => {
+        localStorage.setItem('timer',JSON.stringify(true))
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
         formData.append('name', props.username)
@@ -72,36 +80,31 @@ function Index(props) {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
-                onUploadProgress: progressEvent => {
-                    setUploadPercentage(
-                        parseInt(
-                            Math.round((progressEvent.loaded * 100) / progressEvent.total)
-                        )
-                    );
-                         // Clear percentage
-                    setTimeout(() => setUploadPercentage(0), 10000);
-                }
             });
             const { fileName, filePath } = res.data;
             setVideo(String(filePath).split('s/')[0] + 's/' + props.username + '/video.mp4')
+           
+            history.push('/')
         } catch (err) {
             console.log(err);
         }
     };
-
+    const dumb=()=>{  
+    }
 
     return (
         <div className='slateshot' style={style.main}>
+            {console.log('video', video)}
             <div>
                 <video
                     poster={photo}
-                    height='125px'
+                    height='120'
                     width='100%'
-                    // style={{ maxWidth: props.width, maxHeight: props.height }}
-                    onClick={handleClick}>
-                    <source src={video?video:`uploads/${user.username}/video.mp4`} type="video/mp4">
+                    onClick={video?handleClick:dumb}>
+                    <source src={video ? video : `${process.env.PUBLIC_URL}/uploads/${user.username}/video.mp4`} type="video/mp4">
                     </source>
                 </video>
+
             </div>
             <div className="content">
                 <span className="username">{props.username}</span>
@@ -111,7 +114,7 @@ function Index(props) {
                         <label className='label'>
                             Manage Photo
                         <input name='pic' className='input__btn__upload' type="file" style={{ opacity: 0, width: '0px', position: 'fixed', marginLeft: '-120px' }}
-                                onChange={(e)=>handlePhotoUpload(e)} />
+                                onChange={(e) => handlePhotoUpload(e)} />
 
                         </label>
                     </div>
@@ -120,14 +123,12 @@ function Index(props) {
                         <label className='label'>
                             Add Slateshot
                         <input name='pic' className='input__btn__upload' type="file" style={{ opacity: 0, width: '0px', position: 'fixed', marginLeft: '-120px' }}
-                                onChange={(e)=>handleVideoUpload(e)} />
-
+                                onChange={(e) => handleVideoUpload(e)} />
                         </label>
                     </div>
                 </div>
             </div>
         </div>
-
     )
 }
 

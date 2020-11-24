@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react'
+import React, { useState,useContext,useEffect } from 'react'
 import axios from 'axios';
 import {AuthContext} from '../../../Context/AuthContext';
 function Index(props) {
@@ -18,17 +18,22 @@ function Index(props) {
     }
    
     const user = authContext.user
-
-    axios.get(`http://localhost:3000/uploads/${user.username}/picture.jpg`).then((response) => {
-        setPhoto(`/uploads/${user.username}/picture.jpg`)
-    }).catch((error) => {
-        setPhoto(`/uploads/default/picture.jpg`)
-    })
-    axios.get(`http://localhost:3000/uploads/${user.username}/video.mp4`).then((response) => {
-        setVideo(`/uploads/${user.username}/video.mp4`)
-    }).catch((error) => {
-        setVideo(null)
-    })
+    useEffect(() => {
+    localStorage.removeItem('timer')
+        async function fetchData() {
+            await axios.get(`http://localhost:3000/uploads/${user.username}/picture.jpg`).then((response) => {
+                setPhoto(`/uploads/${user.username}/picture.jpg`)
+            }).catch((error) => {
+                setPhoto(`/uploads/default/picture.jpg`)
+            })
+            await axios.get(`http://localhost:3000/uploads/${user.username}/video.mp4`).then((response) => {
+                setVideo(`/uploads/${user.username}/video.mp4`)
+            }).catch((error) => {
+                setVideo(null)
+            })
+        }
+        fetchData()
+    }, [photo, video])
     const handleClick = (e) => {
         if(e.target.src!==undefined){
         sethandle(!handle)
@@ -38,16 +43,17 @@ function Index(props) {
         catch(err){}
     }
 }
+const dumb=()=>{       
+}
     return (
         <div className='slateshot' style={style.main}>
-        {/* {console.log('path',getPath)} */}
         <div>
             <video
                 poster={photo}
                 height='175px'
                 width='100%'
                 // style={{ maxWidth: props.width, maxHeight: props.height }}
-                onClick={handleClick}>
+                onClick={video?handleClick:dumb}>
                 <source src={`/uploads/${user.username}/video.mp4`} type="video/mp4">
                 </source>
             </video>

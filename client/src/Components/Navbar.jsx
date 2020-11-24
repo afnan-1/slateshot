@@ -1,71 +1,69 @@
-import React, {useContext} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import AuthService from '../AuthServices/AuthServices';
 import { AuthContext } from '../Context/AuthContext';
 
-const Navbar = props =>{
-    const {isAuthenticated,user,setIsAuthenticated,setUser} = useContext(AuthContext);
-    
-    const onClickLogoutHandler = ()=>{
-        AuthService.logout().then(data=>{
-            if(data.success){
+const Navbar = props => {
+    const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(AuthContext);
+
+    const onClickLogoutHandler = () => {
+        AuthService.logout().then(data => {
+            if (data.success) {
                 setUser(data.user);
                 setIsAuthenticated(false);
             }
         });
     }
-
-    const unauthenticatedNavBar = ()=>{
+    const unauthenticatedNavBar = () => {
         return (
             <>
                 <Link to="/">
                     <li className="nav-item nav-link">
                         Home
                     </li>
-                </Link>  
+                </Link>
                 <Link to="/login">
                     <li className="nav-item nav-link">
                         Login
                     </li>
-                </Link>  
+                </Link>
                 <Link to="/register">
                     <li className="nav-item nav-link">
                         Register
                     </li>
-                </Link>  
+                </Link>
             </>
         )
     }
-
-    const authenticatedNavBar = ()=>{
-        return(
+    const authenticatedNavBar = () => {
+        return (
             <>
                 <Link to="/">
                     <li className="nav-item nav-link">
                         Home
                     </li>
-                </Link> 
+                </Link>
                 {
                     <Link to='/edit'>
                         <li className="nav-item nav-link">
-                        Edit
+                            Edit
                     </li>
                     </Link>
-                }  
-                <button type="button" 
-                        className="btn btn-link nav-item nav-link" 
-                        onClick={onClickLogoutHandler}>Logout</button>
+                }
+                <button type="button"
+                    className="btn btn-link nav-item nav-link"
+                    onClick={onClickLogoutHandler}>Logout</button>
             </>
         )
     }
-    return(
+    return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link to="/">
                 <div className="navbar-brand">Slateshot</div>
             </Link>
             <div className="collapse navbar-collapse" id="navbarText">
                 <ul className="navbar-nav mr-auto">
-                    { !isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
+                    {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
                 </ul>
             </div>
 

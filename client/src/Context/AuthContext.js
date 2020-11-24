@@ -15,10 +15,8 @@ export default ({ children })=>{
             setIsLoaded(true);
         });
     },[]);
-
     return (
         <div>
-            {console.log('log',isAuthenticated)}
             {!isLoaded ? <h1>Loading</h1> : 
             <AuthContext.Provider value={{user,setUser,isAuthenticated,setIsAuthenticated}}>
                 { children }
