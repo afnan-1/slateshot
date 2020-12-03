@@ -33,15 +33,23 @@ userRouter.post('/register', (req, res) => {
 })
 userRouter.post('/login', passport.authenticate('local', { session: false }), (req, res) => {
     if (req.isAuthenticated()) {
-        const { _id, username, role } = req.user;
+        const { _id, username, role, email } = req.user;
         const token = signToken(_id);
         res.cookie('access_token', token, { httpOnly: true, sameSite: true });
-        res.status(200).json({ isAuthenticated: true, user: { username, role }, token: token });
+        res.status(200).json({ isAuthenticated: true, user: { username, role,email }, token: token });
     }
 });
-userRouter.get('/logout', passport.authenticate('jwt', { session: false }), (req, res) => {
+userRouter.post('/logingoogle',(req,res)=>{
+    const {username,email} = req.body
+    res.status(200).json({ isAuthenticated: true, user: { username,email }});
+});
+userRouter.post('/loginfacebook',(req,res)=>{
+    const {username, email} = req.body
+    res.status(200).json({ isAuthenticated: true, user: { username,email }});
+});
+userRouter.get('/logout', (req, res) => {
     res.clearCookie('access_token');
-    res.json({ user: { username: "", role: "" }, success: true });
+    res.json({ user: { username: "", role: "",email:"" }, success: true });
 });
 userRouter.get('/admin', passport.authenticate('jwt', { session: false }), (req, res) => {
     if (req.user.role === 'admin') {
@@ -51,8 +59,8 @@ userRouter.get('/admin', passport.authenticate('jwt', { session: false }), (req,
         res.status(403).json({ message: { msgBody: "You're not an admin,go away", msgError: true } });
 });
 userRouter.get('/authenticated', passport.authenticate('jwt', { session: false }), (req, res) => {
-    const { username, role } = req.user;
-    res.status(200).json({ isAuthenticated: true, user: { username, role } });
+    const { username, role,email } = req.user;
+    res.status(200).json({ isAuthenticated: true, user: { username, role,email } });
 });
 
 module.exports = userRouter;

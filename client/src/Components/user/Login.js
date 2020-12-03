@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react';
 import AuthService from '../../AuthServices/AuthServices';
 import { AuthContext } from '../../Context/AuthContext';
 import { useHistory } from 'react-router-dom';
-
+import GoogleLoginComponent from './GoogleLogin'
+import FacebookLogin from './FacebookLogin';
 const Login = props => {
     const [user, setUser] = useState({ username: "", password: "" });
     const authContext = useContext(AuthContext);
@@ -46,6 +47,8 @@ const Login = props => {
                 <button className="btn btn-lg btn-primary btn-block mt-2 col-6 m-auto"
                     type="submit">Log in </button>
             </form>
+            <GoogleLoginComponent />
+            <FacebookLogin />
         </div>
     )
 }

@@ -10,6 +10,7 @@ export default ({ children })=>{
 
     useEffect(()=>{
         AuthService.isAuthenticated().then(data =>{
+            console.log(data.user);
             setUser(data.user);
             setIsAuthenticated(data.isAuthenticated);
             setIsLoaded(true);
@@ -17,10 +18,11 @@ export default ({ children })=>{
     },[]);
     return (
         <div>
-            {!isLoaded ? <h1>Loading</h1> : 
+            {!isLoaded ?'': 
             <AuthContext.Provider value={{user,setUser,isAuthenticated,setIsAuthenticated}}>
                 { children }
-            </AuthContext.Provider>}
+            </AuthContext.Provider>
+}
         </div>
     )
 }

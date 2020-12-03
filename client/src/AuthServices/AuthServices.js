@@ -13,6 +13,37 @@ export default {
                 return { isAuthenticated : false, user : {username : "",role : ""}};
         })
     },
+    loginGoogle:(user)=>{
+        return fetch('/user/logingoogle',{
+            method:'post',
+            body:JSON.stringify(user),
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }).then(res=>{
+            if(res.status !== 401)
+                return res.json().then(data => data);
+            else
+                return { isAuthenticated : false, user : {username : "",email:""}};
+
+        })
+    },
+    loginFacebook:(user)=>{
+        return fetch('/user/loginfacebook',{
+            method:'post',
+            body:JSON.stringify(user),
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }).then(res=>{
+            if(res.status !== 401)
+                return res.json().then(data => data);
+            else
+                return { isAuthenticated : false, user : {username : "",email:""}};
+
+        })
+        
+    },
     register : user =>{
         return fetch('/user/register',{
             method : "post",
@@ -34,7 +65,7 @@ export default {
                     if(res.status !== 401)
                         return res.json().then(data => data);
                     else
-                        return { isAuthenticated : false, user : {username : "",role : ""}};
+                        return { isAuthenticated : false, user : {username : "",role : "",email:''}};
                 });
     }
 

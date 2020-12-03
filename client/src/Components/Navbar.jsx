@@ -7,12 +7,17 @@ const Navbar = props => {
     const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(AuthContext);
 
     const onClickLogoutHandler = () => {
+        localStorage.removeItem('googleusername')
+        localStorage.removeItem('googleemail')
+        localStorage.removeItem('facebookusername')
+        localStorage.removeItem('facebookemail')
         AuthService.logout().then(data => {
             if (data.success) {
                 setUser(data.user);
                 setIsAuthenticated(false);
             }
         });
+       
     }
     const unauthenticatedNavBar = () => {
         return (
@@ -63,7 +68,7 @@ const Navbar = props => {
             </Link>
             <div className="collapse navbar-collapse" id="navbarText">
                 <ul className="navbar-nav mr-auto">
-                    {!isAuthenticated ? unauthenticatedNavBar() : authenticatedNavBar()}
+                    {(!isAuthenticated && !localStorage.getItem('googleusername')) ? unauthenticatedNavBar() : authenticatedNavBar()}
                 </ul>
             </div>
 

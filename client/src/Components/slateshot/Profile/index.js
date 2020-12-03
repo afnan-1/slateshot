@@ -21,13 +21,13 @@ function Index(props) {
     useEffect(() => {
     localStorage.removeItem('timer')
         async function fetchData() {
-            await axios.get(`http://localhost:3000/uploads/${user.username}/picture.jpg`).then((response) => {
-                setPhoto(`/uploads/${user.username}/picture.jpg`)
+            await axios.get(`http://localhost:3000/uploads/${user.email}/picture.jpg`).then((response) => {
+                setPhoto(`/uploads/${user.email}/picture.jpg`)
             }).catch((error) => {
                 setPhoto(`/uploads/default/picture.jpg`)
             })
-            await axios.get(`http://localhost:3000/uploads/${user.username}/video.mp4`).then((response) => {
-                setVideo(`/uploads/${user.username}/video.mp4`)
+            await axios.get(`http://localhost:3000/uploads/${user.email}/video.mp4`).then((response) => {
+                setVideo(`/uploads/${user.email}/video.mp4`)
             }).catch((error) => {
                 setVideo(null)
             })
@@ -54,7 +54,7 @@ const dumb=()=>{
                 width='100%'
                 // style={{ maxWidth: props.width, maxHeight: props.height }}
                 onClick={video?handleClick:dumb}>
-                <source src={`/uploads/${user.username}/video.mp4`} type="video/mp4">
+                <source src={`/uploads/${user.email}/video.mp4`} type="video/mp4">
                 </source>
             </video>
         </div>

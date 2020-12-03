@@ -1,5 +1,5 @@
 
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Slateshot from './Components/slateshot';
 import Navbar from './Components/Navbar';
 import {
@@ -12,6 +12,21 @@ import Dashboard from './Components/dashboard'
 import { AuthContext } from './Context/AuthContext';
 function App(props) {
   const authContext = useContext(AuthContext);
+  const gusername = JSON.parse(localStorage.getItem('googleusername'))
+  const gemail = JSON.parse(localStorage.getItem('googleemail'))
+  const fusername = JSON.parse(localStorage.getItem('facebookusername'))
+  const femail = JSON.parse(localStorage.getItem('facebookemail'))
+  useEffect(() => {
+    if (localStorage.getItem('googleusername')) {
+      authContext.setUser({ username: gusername, email: gemail });
+      authContext.setIsAuthenticated(true);
+    }
+    if (localStorage.getItem('facebookusername')) {
+      authContext.setUser({ username: fusername, email: femail });
+      authContext.setIsAuthenticated(true);
+    }
+  }, [])
+
   return (
     <Router>
       <Navbar />

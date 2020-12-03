@@ -24,20 +24,25 @@ function Index(props) {
     const [handle, sethandle] = useState(false)
     const [photo, setPhoto] = useState(null)
     const [video, setVideo] = useState(null)
-
+    console.log(user);
     useEffect(() => {
-      
-        if (!isAuthenticated){
+      if(localStorage.getItem('googleusername'))
+                {}
+        
+      if(localStorage.getItem('facebookusername'))
+                {}
+        
+     else if (!isAuthenticated){
             history.push("/login");
         }
         async function fetchData() {
-            await axios.get(`http://localhost:3000/uploads/${user.username}/picture.jpg`).then((response) => {
-                setPhoto(`/uploads/${user.username}/picture.jpg`)
+            await axios.get(`http://localhost:3000/uploads/${user.email}/picture.jpg`).then((response) => {
+                setPhoto(`/uploads/${user.email}/picture.jpg`)
             }).catch((error) => {
                 setPhoto(`/uploads/default/picture.jpg`)
             })
-            await axios.get(`http://localhost:3000/uploads/${user.username}/video.mp4`).then((response) => {
-                setVideo(`/uploads/${user.username}/video.mp4`)
+            await axios.get(`http://localhost:3000/uploads/${user.email}/video.mp4`).then((response) => {
+                setVideo(`/uploads/${user.email}/video.mp4`)
             }).catch((error) => {
                 setVideo(null)
             })
@@ -57,7 +62,7 @@ function Index(props) {
     const handlePhotoUpload = async (e) => {
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
-        formData.append('name', props.username)
+        formData.append('name', user.email)
         try {
             const res = await axios.post('/uploadphoto', formData, {
                 headers: {
@@ -65,7 +70,7 @@ function Index(props) {
                 },
             });
             const { fileName, filePath } = res.data;
-            setPhoto(String(filePath).split('s/')[0] + 's/' + props.username + '/picture.jpg')
+            setPhoto(String(filePath).split('s/')[0] + 's/' + user.email + '/picture.jpg')
         } catch (err) {
         }
     };
@@ -74,7 +79,7 @@ function Index(props) {
         localStorage.setItem('timer',JSON.stringify(true))
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
-        formData.append('name', props.username)
+        formData.append('name', user.email)
         try {
             const res = await axios.post('/uploadphoto', formData, {
                 headers: {
@@ -82,7 +87,7 @@ function Index(props) {
                 },
             });
             const { fileName, filePath } = res.data;
-            setVideo(String(filePath).split('s/')[0] + 's/' + props.username + '/video.mp4')
+            setVideo(String(filePath).split('s/')[0] + 's/' + user.email + '/video.mp4')
            
             history.push('/')
         } catch (err) {
@@ -101,7 +106,7 @@ function Index(props) {
                     height='120'
                     width='100%'
                     onClick={video?handleClick:dumb}>
-                    <source src={video ? video : `${process.env.PUBLIC_URL}/uploads/${user.username}/video.mp4`} type="video/mp4">
+                    <source src={video ? video : `${process.env.PUBLIC_URL}/uploads/${user.email}/video.mp4`} type="video/mp4">
                     </source>
                 </video>
 
