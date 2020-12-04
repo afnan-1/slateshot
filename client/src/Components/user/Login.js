@@ -29,7 +29,7 @@ const Login = props => {
 
 
     return (
-        <div className='container m-auto'>
+        <div className='container mx-auto'>
             <form onSubmit={onSubmit}>
                 <h3 className='m-auto col-6'>Slateshot sign in</h3>
                 <label htmlFor="username" className="sr-only">Username: </label>
@@ -46,9 +46,12 @@ const Login = props => {
                     placeholder="Enter Password" />
                 <button className="btn btn-lg btn-primary btn-block mt-2 col-6 m-auto"
                     type="submit">Log in </button>
+                     <div className="socialAuth container col-6 btn btn-lg btn-block mx-auto my-2">
+                        <GoogleLoginComponent />
+                        <FacebookLogin />
+                     </div>
             </form>
-            <GoogleLoginComponent />
-            <FacebookLogin />
+           
         </div>
     )
 }

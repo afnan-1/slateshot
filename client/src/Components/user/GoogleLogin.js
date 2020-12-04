@@ -26,31 +26,16 @@ function GoogleLoginComponent() {
     const responseFailureGoogle = (res) => {
         console.log(res)
     }
-    const googleLogout=()=>{
-        // localStorage.removeItem('googleusername')
-        //    AuthService.logout().then(data => {
-        //     if (data.success) {
-        //         authContext.setUser(data.user);
-        //         authContext.setIsAuthenticated(false);
-        //     }
-        // });
-    }
+
     return (
         <>  
             <GoogleLogin
                 clientId="68679119571-t7cdi4n146r0cangrqba4aksh7561daf.apps.googleusercontent.com"
                 buttonText="Login"
-                // isSignedIn={true}
                 onSuccess={responseGoogle}
                 onFailure={responseFailureGoogle}
                 cookiePolicy={'single_host_origin'}
             />
-            <GoogleLogout
-                clientId="68679119571-t7cdi4n146r0cangrqba4aksh7561daf.apps.googleusercontent.com"
-                buttonText="Logout"
-                onLogoutSuccess={googleLogout}
-            >
-            </GoogleLogout>
         </>
     )
 }

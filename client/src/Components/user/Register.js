@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthService from '../../AuthServices/AuthServices';
-
+import RegisterFinal from './Register/Register'
 const Register = props => {
     const [user, setUser] = useState({ firstname: "", middlename: "", lastname: "", email: "", gender: "", username: "", password: "" });
     const [message, setMessage] = useState(null);
@@ -47,7 +47,7 @@ const Register = props => {
 
     return (
         <div className='container'>
-            <form onSubmit={onSubmit}>
+            {/* <form onSubmit={onSubmit}>
                 <h3 className='col-6 mx-auto'>Please Register</h3>
                 <label htmlFor="firstname" className="sr-only">Firstname </label>
                 <input type="text"
@@ -110,7 +110,9 @@ const Register = props => {
 
                 <button className="btn btn-lg btn-primary btn-block mx-auto col-6"
                     type="submit">Register</button>
-            </form>
+            </form> */}
+            <RegisterFinal />
+            
         </div>
     )
 }

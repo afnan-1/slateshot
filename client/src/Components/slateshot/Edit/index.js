@@ -36,6 +36,9 @@ function Index(props) {
             history.push("/login");
         }
         async function fetchData() {
+
+
+            
             await axios.get(`http://localhost:3000/uploads/${user.email}/picture.jpg`).then((response) => {
                 setPhoto(`/uploads/${user.email}/picture.jpg`)
             }).catch((error) => {
