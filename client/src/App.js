@@ -39,7 +39,6 @@ function App(props) {
       <Route exact path='/'>
         <Dashboard />
       </Route>
-
       <Slateshot
         height="180px"
         width="160px"

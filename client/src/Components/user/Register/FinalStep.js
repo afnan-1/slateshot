@@ -1,71 +1,156 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import TextField from '@material-ui/core/TextField';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import CSC from './CSC'
 import Dob from './Dob'
+import { AuthContext } from '../../../Context/AuthContext';
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        marginTop: theme.spacing(2),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+}));
 function FinalStep(props) {
-    const [confirmemail, setconfirmEmail] = useState('')
-    const { onChange, user, day, month, year, country, city, state } = props
+    const classes = useStyles();
+    const [errors, setErr] = useState({
+        usernameErr: false,
+        passwordErr: false,
+        emailErr: false,
+        confirmEmailErr: false,
+    })
+    const authContext = useContext(AuthContext);
+    const { onChange, user, day, month, year, country, city, region, checkbox, onSubmit, showerr, userErr, emailErr } = props
+    console.log(userErr);
     return (
-        <div>
-            <div className="mt-2 mx-auto col-6">
-                <label htmlFor="username">Username: </label>
-                <input type="text"
-                    name="username"
-                    value={user.username}
-                    onChange={onChange}
-                    className="form-control "
-                    placeholder="Enter Username" />
-            </div>
-            <div className="mt-2 mx-auto col-6">
-                <label htmlFor="password">Password: </label>
-                <input type="password"
-                    name="password"
-                    value={user.password}
-                    onChange={onChange}
-                    className="form-control"
-                    placeholder="Enter Password" />
-            </div>
-            <div className="mt-2 mx-auto col-6">
-                <label htmlFor="email">email </label>
-                <input type="text"
-                    name="email"
-                    value={user.email}
-                    onChange={onChange}
-                    className="form-control"
-                    placeholder="Enter email" />
-            </div>
-            <div className="mt-2 mx-auto col-6">
-                <label htmlFor="email">Confirm email </label>
-                {/* {showerr == "" ? '': alert(showerr) } */}
+        <form onSubmit={onSubmit}>
+            <Container component="main" maxWidth="xs" className={'bg-white py-2 my-2'}>
+                <CssBaseline />
+                <div className={classes.paper}>
+                    <Typography component="h1" variant="h5">
+                        Sign Up
+        </Typography>
+                    <div className={classes.form}>
+                        <TextField
+                            value={user.username}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            error={userErr}
+                            helperText={userErr && 'Username is already taken'}
+                            onChange={onChange}
+                            fullWidth
+                            id="username"
+                            label="Username"
+                            name="username"
+                            autoComplete="username"
+                            autoFocus
+                        />
+                        <TextField
+                            value={user.password}
+                            variant="outlined"
+                            margin="normal"
+                            fullWidth
+                            onChange={onChange}
+                            name="password"
+                            label="Password"
+                            id="password"
+                            autoComplete="password"
+                            type='password'
+                        />
+                        <TextField
+                            value={user.email}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            error={emailErr}
+                            helperText={emailErr && 'Email is already registered'}
+                            onChange={onChange}
+                            name="email"
+                            label="Email"
+                            id="email"
+                            type='email'
+                            autoComplete="email"
+                        />
+                        <TextField
+                            value={authContext.email}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            error={showerr}
+                            helperText={showerr && 'Email is Not Same'}
+                            name="confirmemail"
+                            onChange={(e) => authContext.setEmail(e.target.value)}
+                            label="Confirm Email"
+                            id="confirmemail"
+                            autoComplete="confirmemail"
+                        />
+                        <label className="my-2">Gender (to play):</label>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input ml-2 mr-1" type="radio" onChange={onChange} id='male' value="male" name="gender" />
+                            <label className="form-check-label " htmlFor="male">Male</label>
+                            <input className="form-check-input ml-2 mr-1" type="radio" onChange={onChange} value="female" id='female' name="gender" />
+                            <label className="form-check-label" htmlFor="female">Female</label>
+                        </div>
 
-                <input type="text"
-                    name="confirmemail"
-                    value={confirmemail}
-                    onChange={(e) => setconfirmEmail(e.target.value)}
-                    className="form-control"
-                    placeholder="Confirm email" />
-                <label className="my-2">Gender (to play):</label>
-                <input type="radio" onChange={onChange} value="male" name="gender" className='mr-1 ml-2' />
-                <span>Male</span>
-                <input type="radio" onChange={onChange} value="female" name="gender" className='mr-1 ml-2' />
-                <span>Female</span><br />
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" value="" id="transgender" />
+                            <label className="form-check-label" htmlFor="transgender">
+                                Transgender/Non-Binary
+                                </label> <br />
+                            <input className="form-check-input" type="checkbox" value="" id="twins" />
+                            <label className="form-check-label" htmlFor="twins">
+                                Twins/Mutiples
+                                </label>
+                        </div>
+                        <label className='mt-3'>Are you 18 or older or legally emancipated?</label>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input ml-2 mr-1" type="radio" onChange={onChange} id='yes' value="Yes" name="older18" />
+                            <label className="form-check-label " htmlFor="yes">Yes</label>
+                            <input className="form-check-input ml-2 mr-1" type="radio" onChange={onChange} value="No" name="older18" id='no' />
+                            <label className="form-check-label" htmlFor="no">No</label>
+                        </div>
+                    <div className="px-3">
+                        <Dob onChange={onChange} dob={user.dob} day={day} month={month} year={year} />
+                        </div>
+                        <CSC city={city} country={country} region={region} user={user.csc} />
 
-                <input type="checkbox" value="transgender" name="transgender" onChange={onChange} />
-                <span>Transgender/Non-Binary</span><br />
-                <input type="checkbox" value="twins" name="twins" onChange={onChange} />
-                <span>Twins/Mutiples</span><br />
-
-
-                <label className='mt-3'>Are you 18 or older or legally emancipated?</label>
-                <input type="radio" onChange={onChange} value="Yes" name="older18" className='mr-1 ml-2' />
-                <span>Yes</span>
-                <input type="radio" onChange={onChange} value="No" name="older18" className='mr-1 ml-2' />
-                <span>No</span><br />
-
-                <Dob onChange={onChange} dob={user.dob} day={day} month={month} year={year} />
-                <CSC city={city} country={country} state={state} user={user.csc} />
-            </div>
-
-        </div>
+                        
+                    </div>
+                    <Button
+                            type="submit"
+                            fullWidth
+                            disabled={user.username === '' || user.password === '' || user.email==='' || user.gender==='' || authContext.email==='' ? true : false}
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            Register
+                        </Button>
+                </div>
+              
+            </Container>
+        </form>
     )
 }
 

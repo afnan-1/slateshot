@@ -1,23 +1,26 @@
-import React,{useContext,useState,useEffect} from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { GoogleLogin } from 'react-google-login'
 import AuthService from '../../AuthServices/AuthServices';
 import { AuthContext } from '../../Context/AuthContext';
-import { GoogleLogout } from 'react-google-login';
 import { useHistory } from 'react-router-dom';
 function GoogleLoginComponent() {
     const authContext = useContext(AuthContext);
-    const [user,setUser] = useState({username:null})
+    const [user, setUser] = useState({ username: null })
     let history = useHistory()
 
     const responseGoogle = (response) => {
-        setUser({username:response.profileObj.name,email:response.profileObj.email})
-        localStorage.setItem('googleusername',JSON.stringify(response.profileObj.name))
-        localStorage.setItem('googleemail',JSON.stringify(response.profileObj.email))
+        const user={username: response.profileObj.name, email: response.profileObj.email }
+
         AuthService.loginGoogle(user).then(data => {
             console.log(data);
-            const { isAuthenticated, user } = data;
-            if (isAuthenticated) {
-                authContext.setUser({username:response.profileObj.name,email:response.profileObj.email});
+            const { isAuthenticated, user, message } = data;
+            if (message.msgError) {
+                localStorage.setItem('googleusername', JSON.stringify(response.profileObj.name))
+                localStorage.setItem('googleemail', JSON.stringify(response.profileObj.email))
+                history.push('/register')
+            }
+            else if (isAuthenticated) {
+                authContext.setUser({ username: response.profileObj.name, email: response.profileObj.email });
                 authContext.setIsAuthenticated(isAuthenticated);
                 history.push('/edit');
             }
@@ -28,11 +31,11 @@ function GoogleLoginComponent() {
     }
 
     return (
-        <>  
+        <>
             <GoogleLogin
                 clientId="68679119571-t7cdi4n146r0cangrqba4aksh7561daf.apps.googleusercontent.com"
-                buttonText="Login"
                 onSuccess={responseGoogle}
+                className={'mb-3 mt-1 google-login rounded'}
                 onFailure={responseFailureGoogle}
                 cookiePolicy={'single_host_origin'}
             />

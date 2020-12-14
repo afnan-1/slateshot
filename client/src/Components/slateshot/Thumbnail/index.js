@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect , useRef} from 'react'
 import PersonIcon from '@material-ui/icons/Person';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import EditIcon from '@material-ui/icons/Edit';
@@ -7,9 +7,13 @@ import { AuthContext } from '../../../Context/AuthContext';
 import {
     useHistory
 } from "react-router-dom";
+import AuthService from '../../../AuthServices/AuthServices';
+
 function Index(props) {
     const authContext = useContext(AuthContext);
+    let slateshotRefs = useRef([]);
     const [photo, setPhoto] = useState(null)
+    const [users, setUsers] = useState(null)
     const [video, setVideo] = useState(null)
     let history = useHistory()
     const [handle, sethandle] = useState(false)
@@ -26,49 +30,43 @@ function Index(props) {
     }
     const user = authContext.user
     useEffect(() => {
-        async function fetchData() {
-            await axios.get(`http://localhost:3000/uploads/${user.email}/picture.jpg`).then((response) => {
-                setPhoto(`/uploads/${user.email}/picture.jpg`)
-            }).catch((error) => {
-                setPhoto(`/uploads/default/picture.jpg`)
-            })
-            await axios.get(`http://localhost:3000/uploads/${user.email}/video.mp4`).then((response) => {
-                setVideo(`/uploads/${user.email}/video.mp4`)
-            }).catch((error) => {
-                setVideo(null)
-            })
-        }
-        fetchData()
-    }, [photo, video])
-    const dumb=()=>{
-        
+        AuthService.profile().then(data => {
+            setUsers(data)
+        })
+    }, [])
+    const dumb = () => {
+
     }
     const handleClick = () => {
+        console.log(videoRef);
         sethandle(!handle)
-        handle ? videoRef.current.pause() : videoRef.current.play()
+        handle ? videoRef.current.pause() :videoRef.current.play()
     }
     return (
-        <div className='slateshot' style={style.main}>
-            <div>
-                <video
-                    poster={photo}
-                    height='150'
-                    width='100%'
-                    ref={videoRef}
-                // style={{ maxWidth: props.width, maxHeight: props.height }}
-                >
-                    <source src={`/uploads/${user.email}/video.mp4`} type="video/mp4">
-                    </source>
-                </video>
-            </div>
-            <div className="content">
-                <div className="buttons">
-                    <PersonIcon className='icons' onClick={() => history.push('/profile')} />
-                    <EditIcon className='icons2' onClick={() => history.push('/edit')} />
-                    <PlayArrowIcon className='icons1' onClick={video?handleClick:dumb} />
+        <div>
+          
+                 <div className='slateshot' style={style.main}>
+                    <div>
+                        <video
+                            poster={`/uploads/${props.email}/picture.jpg`}
+                            height='150'
+                            width='100%'
+                            ref={videoRef}
+                        // style={{ maxWidth: props.width, maxHeight: props.height }}
+                        >
+                            <source src={`/uploads/${props.email}/video.mp4`} type="video/mp4">
+                            </source>
+                        </video>
+                    </div>
+                    <div className="content">
+                        <div className="buttons">
+                            <PersonIcon className='icons' onClick={() => history.push(`/profile/${props.username}`)} />
+                            <EditIcon className='icons2' onClick={() => history.push('/edit')} />
+                            <PlayArrowIcon className='icons1' onClick={handleClick} />
+                        </div>
+                        <span className="username">{props.username}</span>
+                    </div>
                 </div>
-                <span className="username">{props.username}</span>
-            </div>
         </div>
     )
 }

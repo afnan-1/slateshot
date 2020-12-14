@@ -76,6 +76,9 @@ label{
 .edit__btns{
     display: flex;
     flex-direction: column;
+    margin-left: 0!important;
+    width: 100%;
+    font-size: 1.3em;
 }
 .btn1{
     display: flex;
@@ -94,4 +97,13 @@ label{
 }
 .label:hover{
     cursor: pointer;
+}
+.google-login{
+    color: white !important;
+    background-color: rgb(201, 31, 31) !important;
+}
+.facebook{
+    background-color:#3b5998;
+    color: white !important;
+    font-size: 0.76em;
 }

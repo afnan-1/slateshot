@@ -3,22 +3,26 @@ import { YearPicker, MonthPicker, DayPicker } from 'react-dropdown-date';
 
 function Dob(props) {
     const {dob, onChange, day,month,year} = props
-    // const 
     return (
-        <div>
+        <div className="row">
+          <div className="col pr-1 px-0 col-xs-6">
+
+         
             <YearPicker
-          defaultValue={'select year'}
+          defaultValue={'Year'}
           start={1950}                // default is 1900
           reverse                     // default is ASCENDING
           value={dob.year}     // mandatory
           onChange={(e)=>year(e)}
           id={'year'}
           name='dob'
-          classes={'mr-2'}
+          classes={'mr-2 form-control'}
           optionClasses={'option classes'}
-        />/
+        />
+         </div>
+         <div className="col pr-1 px-0 col-xs-6">
         <MonthPicker
-          defaultValue={'select month'}
+          defaultValue={'Month'}
           numeric
           short                     // default is full name
           caps                      // default is Titlecase
@@ -28,11 +32,12 @@ function Dob(props) {
           onChange={(e)=>month(e)}
           id={'month'}
           name={'month'}
-          classes={'mr-2 ml-1'}
-          optionClasses={'option classes'}
-        />/
+          classes={'mr-2 form-control'}
+        />
+        </div>
+        <div className="col px-0 col-xs-6">
         <DayPicker
-          defaultValue={'select day'}
+          defaultValue={'Day'}
           year={dob.year}    // mandatory
           month={dob.month-1}  // mandatory
           endYearGiven              // mandatory if end={} is given in YearPicker
@@ -40,9 +45,10 @@ function Dob(props) {
           onChange={(e)=>day(e)}
           id={'day'}
           name={'day'}
-          classes={'ml-1'}
+          classes={'mr-2 form-control'}
           optionClasses={'option classes'}
         />
+        </div>
         </div>
     )
 }

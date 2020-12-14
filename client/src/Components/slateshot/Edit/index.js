@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import PersonIcon from '@material-ui/icons/Person';
 import axios from 'axios';
+import PersonelInfo from './PersonelInfo'
 import { AuthContext } from '../../../Context/AuthContext';
 import { useHistory } from 'react-router-dom';
 function Index(props) {
@@ -20,7 +21,6 @@ function Index(props) {
     axios.defaults.baseURL = 'http://localhost:5000';
 
     const user = authContext.user
-
     const [handle, sethandle] = useState(false)
     const [photo, setPhoto] = useState(null)
     const [video, setVideo] = useState(null)
@@ -35,24 +35,20 @@ function Index(props) {
      else if (!isAuthenticated){
             history.push("/login");
         }
-        async function fetchData() {
-
-
-            
-            await axios.get(`http://localhost:3000/uploads/${user.email}/picture.jpg`).then((response) => {
-                setPhoto(`/uploads/${user.email}/picture.jpg`)
-            }).catch((error) => {
-                setPhoto(`/uploads/default/picture.jpg`)
-            })
-            await axios.get(`http://localhost:3000/uploads/${user.email}/video.mp4`).then((response) => {
-                setVideo(`/uploads/${user.email}/video.mp4`)
-            }).catch((error) => {
-                setVideo(null)
-            })
-        }
         fetchData()
-    }, [photo, video,isAuthenticated])
-
+    }, [])
+    async function fetchData() {            
+        await axios.get(`http://localhost:3000/uploads/${user.email}/picture.jpg`).then((response) => {
+            setPhoto(`/uploads/${user.email}/picture.jpg`)
+        }).catch((error) => {
+            setPhoto(`/uploads/default/picture.jpg`)
+        })
+        await axios.get(`http://localhost:3000/uploads/${user.email}/video.mp4`).then((response) => {
+            setVideo(`/uploads/${user.email}/video.mp4`)
+        }).catch((error) => {
+            setVideo(null)
+        })
+    }
     const handleClick = (e) => {
         if (e.target.src !== undefined) {
             sethandle(!handle)
@@ -101,41 +97,40 @@ function Index(props) {
     }
 
     return (
-        <div className='slateshot' style={style.main}>
-            {console.log('video', video)}
-            <div>
+        <div className="col-xl-3 col-lg-3">
+            <div className="bg-white p-3 widget shadow rounded mb-4">
                 <video
                     poster={photo}
-                    height='120'
+                    height='300'
                     width='100%'
                     onClick={video?handleClick:dumb}>
                     <source src={video ? video : `${process.env.PUBLIC_URL}/uploads/${user.email}/video.mp4`} type="video/mp4">
                     </source>
                 </video>
-
-            </div>
             <div className="content">
                 <span className="username">{props.username}</span>
-                <div className="edit__btns">
+                <div className="edit__btns col-lg-12 col-sm-12 col-xs-12 pl-0 pr-0">
                     <div className='btn1'>
                         <PersonIcon className='btn__icon' />
-                        <label className='label'>
+                        <label className='label py-1'>
                             Manage Photo
                         <input name='pic' className='input__btn__upload' type="file" style={{ opacity: 0, width: '0px', position: 'fixed', marginLeft: '-120px' }}
-                                onChange={(e) => handlePhotoUpload(e)} />
+                                onChange={handlePhotoUpload}/>
 
                         </label>
                     </div>
                     <div className='btn1'>
                         <PersonIcon className='btn__icon' />
-                        <label className='label'>
+                        <label className='label py-1'>
                             Add Slateshot
                         <input name='pic' className='input__btn__upload' type="file" style={{ opacity: 0, width: '0px', position: 'fixed', marginLeft: '-120px' }}
-                                onChange={(e) => handleVideoUpload(e)} />
+                                onChange={handleVideoUpload} />
                         </label>
                     </div>
                 </div>
             </div>
+            <PersonelInfo />
+        </div>
         </div>
     )
 }

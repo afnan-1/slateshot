@@ -59,6 +59,11 @@ export default {
                 .then(res => res.json())
                 .then(data => data);
     },
+    profile:()=>{
+        return fetch('/user/profile')
+            .then(res=>res.json())
+            .then(data=>data)
+    },
     isAuthenticated : ()=>{
         return fetch('/user/authenticated')
                 .then(res=>{

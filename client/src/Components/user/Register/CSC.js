@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import csc from 'country-state-city'
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -6,15 +6,16 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 const useStyles = makeStyles((theme) => ({
     formControl: {
-        margin: theme.spacing(1),
+        marginTop: theme.spacing(2),
         minWidth: 120,
+        width:'100%',
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
 }));
 function CSC(props) {
-    const { country, city, state } = props
+    const { country, city, region } = props
     const classes = useStyles();
     const [cscCountry, setcscCountry] = React.useState('');
     const [cscRegion, setcscRegion] = React.useState('');
@@ -41,26 +42,24 @@ function CSC(props) {
     if(dropDownCity!==undefined){
         dropDownCity = dropDownCity.map((v,i)=> ([v.name,v.id]));
         }
-    console.log(cscCity.split(",")[0]);
-    // console.log(cscCity.split(",")[0]);
-    // console.log(cscCity.split(",")[0]);
 
-
+    console.log(cscRegion);
+    console.log(cscCity);
     return (
-        <div>
+        <>
             <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel htmlFor="outlined-age-native-simple">Country</InputLabel>
                 <Select
                     native
                     value={cscCountry}
-                    onChange={handleChangeCountry}
-                    label="country"
+                    onChange={(e)=>{handleChangeCountry(e);country(e.target.value.split(",")[0]);setcscCity('')}}
+                    label="Country"
                     inputProps={{
                         name: 'country',
                         id: 'outlined-age-native-simple',
                     }}
                 >
-                    <option aria-label="None" value="" />
+                    <option aria-label="None">Select Country</option>
                     {dropdownCountries.map((v, i) => {
                         return <option key={i} value={v}>{v[0]}</option>
                     })}
@@ -71,14 +70,14 @@ function CSC(props) {
                 <Select
                     native
                     value={cscRegion}
-                    onChange={handleChangeRegion}
-                    label="region"
+                    onChange={(e)=>{handleChangeRegion(e);region(e.target.value.split(",")[0])}}
+                    label="Region"
                     inputProps={{
                         name: 'region',
                         id: 'outlined-age-native-simple',
                     }}
                 >
-                    <option aria-label="None" value="" />
+                    <option aria-label="None">Select Region</option>
                     {dropDownRegion.map((v, i) => {
                         return <option key={i} value={v}>{v[0]}</option>
                     })}
@@ -89,20 +88,20 @@ function CSC(props) {
                 <Select
                     native
                     value={cscCity}
-                    onChange={handleChangeCity}
-                    label="city"
+                    onChange={(e)=>{handleChangeCity(e);city(e.target.value.split(",")[0])}}
+                    label="City"
                     inputProps={{
                         name: 'city',
                         id: 'outlined-age-native-simple',
                     }}
                 >
-                    <option aria-label="None" value="" />
+                    <option aria-label="None">City</option>
                     {dropDownCity.map((v, i) => {
                         return <option key={i} value={v}>{v[0]}</option>
                     })}
                 </Select>
             </FormControl>
-        </div>
+        </>
     )
 }
 
