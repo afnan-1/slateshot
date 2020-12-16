@@ -54,6 +54,24 @@ export default {
         }).then(res => res.json())
           .then(data => data);
     },
+    update: user=>{
+        return fetch('/user/update',{
+            method:'put',
+            body : JSON.stringify(user),
+            headers:{
+                'Content-Type':'application/json'
+            }
+        })
+    },
+    title: user=>{
+        return fetch('/user/updatetitle',{
+            method:"put",
+            body:JSON.stringify(user),
+            headers:{
+                'Content-Type':'application/json'
+            }
+        })
+    },
     logout : ()=>{
         return fetch('/user/logout')
                 .then(res => res.json())

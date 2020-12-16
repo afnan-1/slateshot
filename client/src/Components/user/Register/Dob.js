@@ -2,12 +2,10 @@ import React from 'react'
 import { YearPicker, MonthPicker, DayPicker } from 'react-dropdown-date';
 
 function Dob(props) {
-    const {dob, onChange, day,month,year} = props
+    const {dob,day,month,year} = props
     return (
         <div className="row">
           <div className="col pr-1 px-0 col-xs-6">
-
-         
             <YearPicker
           defaultValue={'Year'}
           start={1950}                // default is 1900

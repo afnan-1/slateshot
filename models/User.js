@@ -24,6 +24,10 @@ const UserSchema = new mongoose.Schema({
         min: 3,
         max: 30
     },
+    knownfor:{
+        type:String
+    },
+    jadu:{type:String},
     gender: {
         type: String,
     },
@@ -57,7 +61,6 @@ const UserSchema = new mongoose.Schema({
     reelsAndDemos:{
         type:Array
     }
-
 });
 UserSchema.pre('save', function (next) {
     if (!this.isModified('password'))

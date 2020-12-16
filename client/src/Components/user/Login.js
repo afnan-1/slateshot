@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext , useEffect} from 'react';
 import AuthService from '../../AuthServices/AuthServices';
 import { AuthContext } from '../../Context/AuthContext';
 import { useHistory } from 'react-router-dom';
@@ -18,6 +18,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import AuthServices from '../../AuthServices/AuthServices';
 const useStyles = makeStyles((theme) => ({
     paper: {
       marginTop: theme.spacing(1),
@@ -46,7 +47,14 @@ const Login = props => {
     const onChange = e => {
         setUser({ ...user, [e.target.name]: e.target.value });
     }
-
+    useEffect(()=>{
+      if(authContext.isAuthenticated){
+        const user = {username:authContext.user.username,email:authContext.user.email}
+        AuthServices.login(user).then(data=>{
+        authContext.setUser(user)
+        })
+      }
+    },[])
     const onSubmit = e => {
         e.preventDefault();
         AuthService.login(user).then(data => {

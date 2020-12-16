@@ -10,6 +10,7 @@ import Register from './Components/user/Register';
 import Login from './Components/user/Login';
 import Dashboard from './Components/dashboard'
 import { AuthContext } from './Context/AuthContext';
+import AuthServices from './AuthServices/AuthServices';
 function App(props) {
   const authContext = useContext(AuthContext);
   const gusername = JSON.parse(localStorage.getItem('googleusername'))

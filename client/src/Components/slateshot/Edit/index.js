@@ -24,7 +24,6 @@ function Index(props) {
     const [handle, sethandle] = useState(false)
     const [photo, setPhoto] = useState(null)
     const [video, setVideo] = useState(null)
-    console.log(user);
     useEffect(() => {
       if(localStorage.getItem('googleusername'))
                 {}

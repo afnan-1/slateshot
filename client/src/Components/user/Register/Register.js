@@ -14,7 +14,7 @@ function Register() {
     const [emailErr, setEmailErr] = useState(false);
     const [userErr, setUserErr ] =useState(null)
     const [user, setUser] = useState({
-        firstname: "", middlename: "", lastname: "", email: "", age: "N", gender: "",reelsAndDemos:[['pic','video']],
+        firstname: "", middlename: "", lastname: "", knownfor:"None",jadu:'123', email: "", age: "N", gender: "",reelsAndDemos:[['pic','video']],
         transgender: "No", twins: "No", username: "", password: "", dob: { day: "", year: "", month: "" },
         csc: { country: "", city: "", state: "" }
     });
@@ -62,24 +62,21 @@ function Register() {
         setUserErr(false)
         setUser({
             firstname: "", middlename: "", lastname: "", email: "", age: "", gender: user.gender,
+            helo:'helo',
             transgender: "No", twins: "No", username: "", password: "", dob: { day: "", year: "", month: "" },
             csc: { country: "", city: "", state: "" }})
     }
-    const onSubmit = e => {
+    const onSubmit =async e => {
         e.preventDefault();
-        console.log(userErr,'hylo');
         setEmailErr(false)
         if (authContext.email === user.email) {
             setShowerr(false)
-            console.log('ooo');
-            AuthService.register(user).then(data => {
+           await AuthService.register(user).then(data => {
                 const { message,email } = data;
-                console.log(data);
                 if (!message.msgError && !message.emailError) {
-                    resetForm();
+                    // resetForm();
                     setUserErr(false)
                     setEmailErr(false)
-                    console.log('err');
                     timerID = setTimeout(() => {
                         history.push('/login');
                     }, 100)
@@ -92,7 +89,6 @@ function Register() {
                     setEmailErr(true)
                     setUserErr(false)
                 }
-
             });
         }
         else{setShowerr(true)}

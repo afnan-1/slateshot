@@ -42,9 +42,6 @@ function CSC(props) {
     if(dropDownCity!==undefined){
         dropDownCity = dropDownCity.map((v,i)=> ([v.name,v.id]));
         }
-
-    console.log(cscRegion);
-    console.log(cscCity);
     return (
         <>
             <FormControl variant="outlined" className={classes.formControl}>

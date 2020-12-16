@@ -39,7 +39,6 @@ function FinalStep(props) {
     })
     const authContext = useContext(AuthContext);
     const { onChange, user, day, month, year, country, city, region, checkbox, onSubmit, showerr, userErr, emailErr } = props
-    console.log(userErr);
     return (
         <form onSubmit={onSubmit}>
             <Container component="main" maxWidth="xs" className={'bg-white py-2 my-2'}>
