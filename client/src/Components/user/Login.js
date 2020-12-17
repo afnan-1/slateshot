@@ -54,6 +54,10 @@ const Login = props => {
         authContext.setUser(user)
         })
       }
+      // if(localStorage.getItem("googleusername") || localStorage.getItem("facebookusername"))
+      // {
+      //   history.push("/edit")
+      // }
     },[])
     const onSubmit = e => {
         e.preventDefault();

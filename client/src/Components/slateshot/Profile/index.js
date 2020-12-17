@@ -47,7 +47,7 @@ function Index(props) {
               <div className="container-fluid">
                 <div className="row">
                  <PersonelInfo email={props.email} gender={props.gender} year={props.year} month={props.month} day={props.day} city={props.city}
-                 country={props.country} state={props.state} />
+                 country={props.country} state={props.state} jadu={props.jadu} />
                   <div className="col-xl-9 col-lg-9">
                     <div className="bg-white info-header shadow rounded mb-4">
                       <div className="row d-flex align-items-center justify-content-between p-3 border-bottom">

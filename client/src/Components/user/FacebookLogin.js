@@ -21,7 +21,9 @@ function FacebookLoginComponent() {
                 history.push('/register')
             }
             else if (isAuthenticated) {
-                authContext.setUser({username:res.name,email:res.email});
+                localStorage.setItem('facebookusername',JSON.stringify(res.name))
+                localStorage.setItem('facebookemail',JSON.stringify(res.email))
+                authContext.setUser(user);
                 authContext.setIsAuthenticated(isAuthenticated);
                 history.push('/edit');
             }

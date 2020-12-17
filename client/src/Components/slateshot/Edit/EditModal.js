@@ -1,5 +1,5 @@
 import Modal from 'react-modal';
-import React, {useState,useContext} from 'react'
+import React, {useState,useContext, useEffect} from 'react'
 import Dob from '../../user/Register/Dob';
 import CSC from '../../user/Register/CSC';
 import Editform from './Editform';
@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AuthServices from '../../../AuthServices/AuthServices';
 import { AuthContext } from '../../../Context/AuthContext';
+import { DocumentProvider } from 'mongoose';
 const customStyles = {
   content : {
     top                   : '50%',
@@ -37,27 +38,36 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function EditModal() {
+function EditModal(props) {
+    const {dob, csc } = props
     const authContext = useContext(AuthContext)
     const loggedUser = authContext.user
+    console.log(loggedUser);
     const {_id, firstname, middlename, lastname, email} = loggedUser
     const classes = useStyles();
     const [showModal, setShowModal] = useState(false)
     const [user, setUser] = useState({
-        id:_id,
+        id:authContext.user._id,
         firstname: firstname, middlename: middlename, lastname: lastname, email: email, age: "N", gender: "",reelsAndDemos:[['pic','video']],
-        username: "", password: "", dob: { day: "", year: "", month: "" },
-        csc: { country: "", city: "", state: "" }
+        username: "", password:"", dob: { day: authContext.user.dob_day, year:authContext.user.dob_year, month: authContext.user.dob_month },
+        csc: { country: loggedUser.csc_country, city: loggedUser.csc_city, state: loggedUser.csc_state }
     });
     const handleOpenModal=()=>{
         setShowModal(true)
     }
     const handleCloseModal=()=>{
+        setShowModal(false)
+    }
+    const handleEdit=()=>{
+        console.log(authContext.user);
+        setUser({...user,id:authContext.user._id})
+        // console.log();
         AuthServices.update(user).then(data=>{
             console.log('user updated succesfullly');
         })
+        dob(user.dob)
+        csc(user.csc)
         setShowModal(false)
-
     }
     const day = (e) => {
         setUser({ ...user, dob: { ...user.dob, day: e } })
@@ -89,10 +99,11 @@ function EditModal() {
            onRequestClose={handleCloseModal}
            style={customStyles}
         >
-         <Editform onChange={onChange} user={user} />
+         <Editform onChange={onChange} user={loggedUser} pass={user.password}/>
          <div className='px-1'>
          <div className="w-100 px-4">
-          <Dob dob={user.dob} day={day} month={month} year={year} />
+          <Dob dob={user.dob} day={day} month={month} year={year}
+           />
           </div>
           </div>
         <div className="px-3">
@@ -100,7 +111,7 @@ function EditModal() {
           </div>
           <div className="px-3">
           <Button
-                        onClick={handleCloseModal}
+                        onClick={handleEdit}
                         fullWidth
                         variant="contained"
                         color="primary"

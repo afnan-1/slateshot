@@ -32,7 +32,7 @@ function Index(props) {
                 {}
         
      else if (!isAuthenticated){
-            history.push("/login");
+            // history.push("/login");
         }
         fetchData()
     }, [])

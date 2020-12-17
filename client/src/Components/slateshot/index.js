@@ -43,7 +43,6 @@ function Index(props) {
                         }) : ''}
                     </div>
                 </Route>
-                {console.log(users)}
                 {users ? Object.keys(users).map(v => {
                     return <Route path={`/profile/${users[v].username}`}>
                         <UserProfile username={users[v].username}
@@ -52,6 +51,7 @@ function Index(props) {
                             day={users[v].dob_day}
                             year={users[v].dob_year}
                             month={users[v].dob_month}
+                            jadu={users[v].jadu}
                             country={users[v].csc_country}
                             state={users[v].csc_state}
                             city={users[v].csc_city}

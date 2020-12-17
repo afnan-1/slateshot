@@ -68,6 +68,7 @@ function FinalStep(props) {
                             variant="outlined"
                             margin="normal"
                             fullWidth
+                            disabled={localStorage.getItem("facebookusername") || localStorage.getItem("googleusername")?true:false}
                             onChange={onChange}
                             name="password"
                             label="Password"
@@ -111,17 +112,6 @@ function FinalStep(props) {
                             <input className="form-check-input ml-2 mr-1" type="radio" onChange={onChange} value="female" id='female' name="gender" />
                             <label className="form-check-label" htmlFor="female">Female</label>
                         </div>
-
-                        <div className="form-check">
-                            <input className="form-check-input" type="checkbox" value="" id="transgender" />
-                            <label className="form-check-label" htmlFor="transgender">
-                                Transgender/Non-Binary
-                                </label> <br />
-                            <input className="form-check-input" type="checkbox" value="" id="twins" />
-                            <label className="form-check-label" htmlFor="twins">
-                                Twins/Mutiples
-                                </label>
-                        </div>
                         <label className='mt-3'>Are you 18 or older or legally emancipated?</label>
                         <div className="form-check form-check-inline">
                             <input className="form-check-input ml-2 mr-1" type="radio" onChange={onChange} id='yes' value="Yes" name="older18" />
@@ -139,7 +129,7 @@ function FinalStep(props) {
                     <Button
                             type="submit"
                             fullWidth
-                            disabled={user.username === '' || user.password === '' || user.email==='' || user.gender==='' || authContext.email==='' ? true : false}
+                            disabled={user.username === '' || user.email==='' || user.gender==='' || authContext.email==='' ? true : false}
                             variant="contained"
                             color="primary"
                             className={classes.submit}

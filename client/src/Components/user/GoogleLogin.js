@@ -20,6 +20,8 @@ function GoogleLoginComponent() {
                 history.push('/register')
             }
             else if (isAuthenticated) {
+                localStorage.setItem('googleusername', JSON.stringify(response.profileObj.name))
+                localStorage.setItem('googleemail', JSON.stringify(response.profileObj.email))
                 authContext.setUser({ username: response.profileObj.name, email: response.profileObj.email });
                 authContext.setIsAuthenticated(isAuthenticated);
                 history.push('/edit');

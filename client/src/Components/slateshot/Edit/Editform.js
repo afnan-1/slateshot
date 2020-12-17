@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Editform(props) {
-    const { onChange, user } = props
+    const { onChange, user, pass } = props
     const classes = useStyles();
     const [errors, setErr] = useState({
         firstnameErr: false,
@@ -129,17 +129,17 @@ function Editform(props) {
                     </div>
                     <div className="col-6 pl-1 pr-0 ">
                         <TextField
-                            value={user.password}
+                            value={pass}
                             variant="outlined"
                             margin="dense"
-                            required
                             fullWidth
-                            disabled
+                            type='password'
+                            disabled={localStorage.getItem("facebookusername") || localStorage.getItem("googleusername")?true:false}
                             error={errors.lasttnameErr}
                             helperText={errors.lastnameErr && 'Username is required'}
                             onChange={onChange}
                             name="password"
-                            label="Password"
+                            label={(localStorage.getItem("facebookusername") || localStorage.getItem("googleusername"))?"No Password - Social login":"New-Password"}
                             id="password"
                             autoComplete="password"
                         />

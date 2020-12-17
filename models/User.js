@@ -24,10 +24,7 @@ const UserSchema = new mongoose.Schema({
         min: 3,
         max: 30
     },
-    knownfor:{
-        type:String
-    },
-    jadu:{type:String},
+    actor:{type:String},
     gender: {
         type: String,
     },
