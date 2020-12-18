@@ -50,6 +50,31 @@ app.post('/uploadphoto', (req, res) => {
     }
   });
 });
+
+app.post('/uploadreels',(req,res)=>{
+  if (req.files === null) {
+    return res.status(400).json({ msg: 'No file uploaded' });
+  }
+  if (req.body === null) {
+    return res.status(400).json({ msg: 'no name' })
+  };
+  const file = req.files.reels;
+  const name = req.body.title
+  const email = req.body.email
+  const key = req.body.key
+  const fs = require("fs")
+  file.mv(`${__dirname}/client/public/uploads/${email}/${file.name}`, err => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send(err);
+    }
+    fs.rename(`./client/public/uploads/${email}/${file.name}`, `./client/public/uploads/${email}/${key}.mp4`, function (err) {
+      if (err) console.log('ERROR: ' + err);
+      res.json({ key: key, filePath: `/uploads/${file.name}` });
+    });
+
+  })
+})
 const userRouter = require('./routes/User')
 app.use('/user', userRouter)
 app.listen(5000, () => console.log('Server Started...'));

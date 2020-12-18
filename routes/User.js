@@ -163,7 +163,7 @@ userRouter.put('/updatetitle', (req, res) => {
                         res.status(500).send()
                     }
                     else {
-                        res.send(updatedtitle)
+                        res.status(200).json({update:updatedtitle})
                     }
                 })
 
@@ -172,7 +172,36 @@ userRouter.put('/updatetitle', (req, res) => {
         }
     })
 })
-
+userRouter.put('/updatereelsanddemos',(req,res)=>{
+    const {email, reelsAndDemos} = req.body
+    console.log(reelsAndDemos);
+    User.findOne({email:email},(err,user)=>{
+        if (err) {
+            console.log(err);
+        }
+        else {
+            if (!user) {
+                console.log('not found');
+                res.status(404).send()
+            }
+            else {
+                if (reelsAndDemos) {
+                    console.log('okok');
+                    user.reelsAndDemos = [...user.reelsAndDemos, reelsAndDemos]
+                }
+                user.save((err, updatedUser) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send()
+                    }
+                    else {
+                        res.send(updatedUser)
+                    }
+                })
+            }
+        }
+    })
+})
 userRouter.put('/update', (req, res) => {
     // const {id} = req.params
     const { id, firstname, middlename, lastname, dob, csc, password } = req.body
@@ -187,9 +216,6 @@ userRouter.put('/update', (req, res) => {
                 res.status(404).send()
             }
             else {
-                if (req.body.reelsAndDemos) {
-                    user.reelsAndDemos = [...user.reelsAndDemos, req.body.reelsAndDemos]
-                }
                 const csc_country = csc.country
                 const csc_city = csc.city
                 const csc_state = csc.state
@@ -208,7 +234,6 @@ userRouter.put('/update', (req, res) => {
                 if(password!==""){
                     user.password = password
                 }
-                
                 user.save((err, updatedUser) => {
                     if (err) {
                         console.log(err);

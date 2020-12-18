@@ -55,7 +55,7 @@ export default {
           .then(data => data);
     },
     update: user=>{
-        return fetch('/user/update',{
+        return fetch('http://localhost:5000/user/update',{
             method:'put',
             body : JSON.stringify(user),
             headers:{
@@ -71,6 +71,16 @@ export default {
                 'Content-Type':'application/json'
             }
         })
+    },
+    updateReelsDemos:user=>{
+        return fetch('http://localhost:5000/user/updatereelsanddemos',{
+            method:"put",
+            body:JSON.stringify(user),
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }).then(res=>res.json())
+        .then(data=>data)
     },
     logout : ()=>{
         return fetch('/user/logout')

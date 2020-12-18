@@ -14,7 +14,7 @@ function Register() {
     const [emailErr, setEmailErr] = useState(false);
     const [userErr, setUserErr] = useState(null)
     const [user, setUser] = useState({
-        firstname: "", middlename: "", lastname: "", jadu: '123', email: "", age: "N", gender: "", reelsAndDemos: [['pic', 'video']],
+        firstname: "", middlename: "", lastname: "", jadu: '123', email: "", age: "N", gender: "",
         username: "", password: "", dob: { day: "", year: "", month: "" },
         csc: { country: "", city: "", state: "" }
     });
@@ -70,6 +70,9 @@ function Register() {
         e.preventDefault();
         console.log('helo');
         setEmailErr(false)
+        if(localStorage.getItem("facebookusername") || localStorage.getItem("googleusername")){
+            authContext.setEmail(user.email)
+        }
         if (authContext.email === user.email) {
             setShowerr(false)
             await AuthService.register(user).then(data => {

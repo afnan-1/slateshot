@@ -35,7 +35,8 @@ function Index(props) {
             // history.push("/login");
         }
         fetchData()
-    }, [])
+    })
+    console.log(user);
     async function fetchData() {            
         await axios.get(`http://localhost:3000/uploads/${user.email}/picture.jpg`).then((response) => {
             setPhoto(`/uploads/${user.email}/picture.jpg`)
@@ -102,6 +103,7 @@ function Index(props) {
                     poster={photo}
                     height='300'
                     width='100%'
+                    style={{ width:'100%', objectFit:'fill' }}
                     onClick={video?handleClick:dumb}>
                     <source src={video ? video : `${process.env.PUBLIC_URL}/uploads/${user.email}/video.mp4`} type="video/mp4">
                     </source>
@@ -122,13 +124,13 @@ function Index(props) {
                         <PersonIcon className='btn__icon' />
                         <label className='label py-1'>
                             Add Slateshot
-                        <input name='pic' className='input__btn__upload' type="file" style={{ opacity: 0, width: '0px', position: 'fixed', marginLeft: '-120px' }}
+                        <input name='video' className='input__btn__upload' type="file" style={{ opacity: 0, width: '0px', position: 'fixed', marginLeft: '-120px' }}
                                 onChange={handleVideoUpload} />
                         </label>
                     </div>
                 </div>
             </div>
-            <PersonelInfo />
+            <PersonelInfo  userr={user} />
         </div>
         </div>
     )

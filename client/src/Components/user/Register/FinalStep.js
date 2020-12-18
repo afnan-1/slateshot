@@ -92,7 +92,7 @@ function FinalStep(props) {
                             autoComplete="email"
                         />
                         <TextField
-                            value={authContext.email}
+                            value={localStorage.getItem("facebookusername") || localStorage.getItem("googleusername")?user.email:authContext.email}
                             variant="outlined"
                             margin="normal"
                             required

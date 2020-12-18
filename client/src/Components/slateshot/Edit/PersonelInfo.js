@@ -4,9 +4,9 @@ import EditModal from './EditModal'
 import './personelinfo.css'
 import { AuthContext } from '../../../Context/AuthContext';
 import AuthServices from '../../../AuthServices/AuthServices';
-function PersonelInfo() {
+function PersonelInfo(props) {
+    const {userr} = props
     const authContext = useContext(AuthContext)
-    console.log(authContext.user.actor);
     const [editData, setEditData] = useState({
         actor: authContext.user.actor,
         id: authContext.user._id
@@ -39,7 +39,7 @@ function PersonelInfo() {
     return (
         <> <div className='w-100 row'>
             <h1 className="col h6 mb-3 mt-3 font-weight-bold text-gray-900 d-inline">Personal Info</h1>
-            <EditModal dob={dob} csc={csc} />
+            <EditModal userr={user} dob={dob} csc={csc} />
         </div>
             <p className="mb-2 d-inline"><i className="fas fa-user-circle fa-fw" /> Known For -
             {knownFor ? <input className='col-4' type="text" onChange={handleChange} name='knownFor' value={authContext.user.actor} /> : authContext.user.actor}

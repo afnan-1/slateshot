@@ -27,6 +27,7 @@ function Index(props) {
                         <Edit username={props.username}
                             height={props.height}
                             width={props.width}
+                            user={authContext.user}
                         />
                     </Route>
                 }

@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AuthServices from '../../../AuthServices/AuthServices';
 import { AuthContext } from '../../../Context/AuthContext';
-import { DocumentProvider } from 'mongoose';
 const customStyles = {
   content : {
     top                   : '50%',
@@ -42,16 +41,23 @@ function EditModal(props) {
     const {dob, csc } = props
     const authContext = useContext(AuthContext)
     const loggedUser = authContext.user
-    console.log(loggedUser);
     const {_id, firstname, middlename, lastname, email} = loggedUser
     const classes = useStyles();
     const [showModal, setShowModal] = useState(false)
     const [user, setUser] = useState({
         id:authContext.user._id,
-        firstname: firstname, middlename: middlename, lastname: lastname, email: email, age: "N", gender: "",reelsAndDemos:[['pic','video']],
-        username: "", password:"", dob: { day: authContext.user.dob_day, year:authContext.user.dob_year, month: authContext.user.dob_month },
+        firstname: firstname, middlename: middlename, lastname: lastname, email: email, age: "N", gender: "",reelsAndDemos:[],
+        username: "", password:"", dob: { dob_day: authContext.user.dob_day, dob_year:authContext.user.dob_year, dob_month: authContext.user.dob_month },
         csc: { country: loggedUser.csc_country, city: loggedUser.csc_city, state: loggedUser.csc_state }
     });
+    useEffect(()=>{
+        setUser({
+            id:authContext.user._id,
+            firstname: firstname, middlename: middlename, lastname: lastname, email: email, age: "N", gender: "",reelsAndDemos:[],
+            username: "", password:"", dob: { dob_day: authContext.user.dob_day, dob_year:authContext.user.dob_year, dob_month: authContext.user.dob_month },
+            csc: { country: loggedUser.csc_country, city: loggedUser.csc_city, state: loggedUser.csc_state }
+        })
+    },[loggedUser])
     const handleOpenModal=()=>{
         setShowModal(true)
     }
@@ -59,11 +65,9 @@ function EditModal(props) {
         setShowModal(false)
     }
     const handleEdit=()=>{
-        console.log(authContext.user);
-        setUser({...user,id:authContext.user._id})
-        // console.log();
+        console.log(user);
         AuthServices.update(user).then(data=>{
-            console.log('user updated succesfullly');
+            console.log('data',data);
         })
         dob(user.dob)
         csc(user.csc)
@@ -88,6 +92,7 @@ function EditModal(props) {
         setUser({ ...user, csc: { ...user.csc, city: e }})
     }
     const onChange = e => {
+        console.log(user);
         setUser({ ...user, [e.target.name]: e.target.value });
     }
     return (
@@ -99,7 +104,7 @@ function EditModal(props) {
            onRequestClose={handleCloseModal}
            style={customStyles}
         >
-         <Editform onChange={onChange} user={loggedUser} pass={user.password}/>
+         <Editform onChange={onChange} user={user} pass={user.password}/>
          <div className='px-1'>
          <div className="w-100 px-4">
           <Dob dob={user.dob} day={day} month={month} year={year}

@@ -5,9 +5,8 @@ import { AuthContext } from '../../Context/AuthContext';
 import { useHistory } from 'react-router-dom';
 function GoogleLoginComponent() {
     const authContext = useContext(AuthContext);
-    const [user, setUser] = useState({ username: null })
+    // const [user, setUser] = useState({ username: null })
     let history = useHistory()
-
     const responseGoogle = (response) => {
         const user={username: response.profileObj.name, email: response.profileObj.email }
 
@@ -22,7 +21,7 @@ function GoogleLoginComponent() {
             else if (isAuthenticated) {
                 localStorage.setItem('googleusername', JSON.stringify(response.profileObj.name))
                 localStorage.setItem('googleemail', JSON.stringify(response.profileObj.email))
-                authContext.setUser({ username: response.profileObj.name, email: response.profileObj.email });
+                authContext.setUser({...authContext.user,...user});
                 authContext.setIsAuthenticated(isAuthenticated);
                 history.push('/edit');
             }

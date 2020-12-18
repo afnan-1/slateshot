@@ -123,8 +123,8 @@ function Editform(props) {
                             onChange={onChange}
                             name="email"
                             label="Email"
-                            id="lastname"
-                            autoComplete="lastname"
+                            id="email"
+                            autoComplete="email"
                         />
                     </div>
                     <div className="col-6 pl-1 pr-0 ">

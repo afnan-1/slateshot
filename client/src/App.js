@@ -27,7 +27,6 @@ function App() {
         email:gemail
       }
       AuthServices.loginGoogle(user).then(data => {
-        console.log(data);
         const { isAuthenticated, user, message } = data;
         if (message.msgError) {
             // history.push('/register')

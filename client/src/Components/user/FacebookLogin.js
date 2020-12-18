@@ -23,7 +23,7 @@ function FacebookLoginComponent() {
             else if (isAuthenticated) {
                 localStorage.setItem('facebookusername',JSON.stringify(res.name))
                 localStorage.setItem('facebookemail',JSON.stringify(res.email))
-                authContext.setUser(user);
+                authContext.setUser({...authContext.user,...user});
                 authContext.setIsAuthenticated(isAuthenticated);
                 history.push('/edit');
             }
