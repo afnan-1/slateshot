@@ -38,7 +38,7 @@ function Main(props) {
                            <div className="bg-white info-header shadow rounded mb-4">
                              <div className="row d-flex align-items-center justify-content-between p-3 border-bottom">
                                <div className="col-lg-7 m-b-4">
-                                 <h3 className="text-gray-900 mb-0 mt-0 font-weight-bold">{authContext.user.firstname} {authContext.user.lastname}</h3>
+                                 <h3 className="text-gray-900 mb-0 mt-0 font-weight-bold">{authContext.user.firstname.toUpperCase()} {authContext.user.lastname.toUpperCase()}</h3>
                                  <p className="mb-0 text-gray-800"><small className="text-muted"><i className="fas fa-user-circle fa-fw fa-sm mr-1" /> {authContext.user.actor}</small></p>
                                </div>
                              </div>

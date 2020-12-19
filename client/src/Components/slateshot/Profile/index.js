@@ -47,32 +47,18 @@ function Index(props) {
               <div className="container-fluid">
                 <div className="row">
                  <PersonelInfo email={props.email} gender={props.gender} year={props.year} month={props.month} day={props.day} city={props.city}
-                 country={props.country} state={props.state} jadu={props.jadu} />
+                 country={props.country} state={props.state} actor={props.actor} />
                   <div className="col-xl-9 col-lg-9">
                     <div className="bg-white info-header shadow rounded mb-4">
                       <div className="row d-flex align-items-center justify-content-between p-3 border-bottom">
                         <div className="col-lg-7 m-b-4">
-                          <h3 className="text-gray-900 mb-0 mt-0 font-weight-bold">{props.username}</h3>
+                          <h3 className="text-gray-900 mb-0 mt-0 font-weight-bold">{props.firstname.toUpperCase()} {props.lastname.toUpperCase()}</h3>
                           <p className="mb-0 text-gray-800"><small className="text-muted"><i className="fas fa-user-circle fa-fw fa-sm mr-1" /> Acting</small></p>
-                        </div>
-                        <div className="col-lg-5 text-right">
-                          <a href="#" className="btn btn-primary btn-circle">
-                            <i className="fab fa-facebook-f" />
-                          </a>
-                          <a href="#" className="btn btn-danger btn-circle">
-                            <i className="fab fa-youtube" />
-                          </a>
-                          <a href="#" className="btn btn-warning btn-circle">
-                            <i className="fab fa-snapchat-ghost" />
-                          </a>
-                          <a href="#" className="btn btn-info btn-circle">
-                            <i className="fab fa-twitter" />
-                          </a>
                         </div>
                       </div>
                     </div>
                   {/* Biography */}
-                    <Biography user={props.user} />
+                    <Biography email={props.email} reels={props.reels} excerpts={props.excerpts} />
                   </div>
                 </div>
               </div>

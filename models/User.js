@@ -57,6 +57,9 @@ const UserSchema = new mongoose.Schema({
     },
     reelsAndDemos:{
         type:Array
+    },
+    excerpts:{
+        type:Array
     }
 });
 UserSchema.pre('save', function (next) {

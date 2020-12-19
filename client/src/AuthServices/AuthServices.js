@@ -63,6 +63,16 @@ export default {
             }
         })
     },
+    delete:user=>{
+        return fetch('http://localhost:5000/user/delete',{
+            method:"put",
+            body:JSON.stringify(user),
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }).then(res=>res.json())
+        .then(data=>data)
+    },
     title: user=>{
         return fetch('/user/updatetitle',{
             method:"put",

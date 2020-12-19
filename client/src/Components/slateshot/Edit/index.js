@@ -103,7 +103,7 @@ function Index(props) {
                     poster={photo}
                     height='300'
                     width='100%'
-                    style={{ width:'100%', objectFit:'fill' }}
+                    style={{ width:'100%', objectFit:'cover' }}
                     onClick={video?handleClick:dumb}>
                     <source src={video ? video : `${process.env.PUBLIC_URL}/uploads/${user.email}/video.mp4`} type="video/mp4">
                     </source>
@@ -115,7 +115,7 @@ function Index(props) {
                         <PersonIcon className='btn__icon' />
                         <label className='label py-1'>
                             Manage Photo
-                        <input name='pic' className='input__btn__upload' type="file" style={{ opacity: 0, width: '0px', position: 'fixed', marginLeft: '-120px' }}
+                        <input name='pic' className='input__btn__upload' type="file" style={{ opacity: 0, width: '0px',display:'none', position: 'fixed', marginLeft: '-120px' }}
                                 onChange={handlePhotoUpload}/>
 
                         </label>
@@ -124,7 +124,7 @@ function Index(props) {
                         <PersonIcon className='btn__icon' />
                         <label className='label py-1'>
                             Add Slateshot
-                        <input name='video' className='input__btn__upload' type="file" style={{ opacity: 0, width: '0px', position: 'fixed', marginLeft: '-120px' }}
+                        <input name='video' className='input__btn__upload' type="file" style={{ opacity: 0,display:'none', width: '0px', position: 'fixed', marginLeft: '-120px' }}
                                 onChange={handleVideoUpload} />
                         </label>
                     </div>

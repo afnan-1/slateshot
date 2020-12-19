@@ -14,24 +14,25 @@ import { AuthContext } from '../../Context/AuthContext';
 function Index(props) {
     const authContext = useContext(AuthContext);
     const [users, setUsers] = useState(null)
+    AuthService.profile().then(data => {
+        setUsers(data)
+    })
     useEffect(() => {
-        AuthService.profile().then(data => {
-            setUsers(data)
-        })
+       
     }, [])
     return (
         <div>
             <Switch>
                 {
-                    <Route path='/edit'>
-                        <Edit username={props.username}
-                            height={props.height}
-                            width={props.width}
-                            user={authContext.user}
-                        />
-                    </Route>
+                    // <Route path='/edit'>
+                    //     <Edit username={props.username}
+                    //         height={props.height}
+                    //         width={props.width}
+                    //         user={authContext.user}
+                    //     />
+                    // </Route>
                 }
-                <Route path={`/thumbnail`}>
+                {/* <Route path={`/thumbnail`}>
                     <div className='row'>
                         {users ? Object.keys(users).map((v, i) => {
                             return <Thumbnail username={users[v].username}
@@ -43,8 +44,8 @@ function Index(props) {
                                 srcVideo={props.srcVideo} />
                         }) : ''}
                     </div>
-                </Route>
-                {users ? Object.keys(users).map(v => {
+                </Route> */}
+                {/* {users ? Object.keys(users).map(v => {
                     return <Route path={`/profile/${users[v].username}`}>
                         <UserProfile username={users[v].username}
                             user={users[v].reelsAndDemos}
@@ -62,7 +63,7 @@ function Index(props) {
                             srcImg={props.srcImg}
                             srcVideo={props.srcVideo} />
                     </Route>
-                }) : ''}
+                }) : ''} */}
             </Switch>
         </div>
     )

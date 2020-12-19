@@ -15,25 +15,20 @@ const signToken = userID => {
 }
 userRouter.post('/register', (req, res) => {
     const { username } = req.body;
-    console.log(req.body);
     User.findOne({ username }, (err, user) => {
         if (err) {
-            console.log(err, 'error has occured');
             res.status(500).json({ 'message': { msgbody: 'error has occured', msgError: true } })
         }
         if (user) {
-            console.log(user, 'username taken');
             res.status(400).json({ 'message': { msgbody: 'username is already taken', msgError: true } })
         }
         else {
             const { firstname, email, gender, middlename, lastname, username, password, age, csc, dob, older18, reelsAndDemos } = req.body;
             User.findOne({ email }, (err, user) => {
                 if (err) {
-                    console.log(err, 'error has occured');
                     res.status(500).json({ 'message': { msgbody: 'error has occured', emailError: true, msgError: false } })
                 }
                 if (user) {
-                    console.log(user, 'email taken');
                     res.status(400).json({ 'message': { msgbody: 'email is already taken', emailError: true, msgError: false } })
                 }
                 else {
@@ -43,9 +38,8 @@ userRouter.post('/register', (req, res) => {
                     const dob_day = dob.day
                     const dob_year = dob.year
                     const dob_month = dob.month
-                    
-                    if (password!=="")
-                    {
+
+                    if (password !== "") {
                         const newUser = new User({
                             firstname, email, gender, middlename, lastname, email, gender,
                             username, password, age, csc_country, csc_city,
@@ -58,7 +52,7 @@ userRouter.post('/register', (req, res) => {
                                 res.status(201).json({ message: { msgbody: 'Account has succesfully created', msgError: false, emailError: false } })
                         })
                     }
-                    else{
+                    else {
                         const newUser = new User({
                             firstname, email, gender, middlename, lastname, email, gender,
                             username, age, csc_country, csc_city,
@@ -71,7 +65,7 @@ userRouter.post('/register', (req, res) => {
                                 res.status(201).json({ message: { msgbody: 'Account has succesfully created', msgError: false, emailError: false } })
                         })
                     }
-                   
+
                 }
             })
 
@@ -118,7 +112,7 @@ userRouter.post('/loginfacebook', (req, res) => {
             res.status(500).json({ 'message': { msgbody: 'error has occured', msgError: false } })
         }
         if (user) {
-            res.status(200).json({ isAuthenticated: true, user:user, 'message': { msgError: false } });
+            res.status(200).json({ isAuthenticated: true, user: user, 'message': { msgError: false } });
         }
         else {
             res.status(500).json({ 'message': { msgbody: 'successfull', msgError: true } })
@@ -145,14 +139,12 @@ userRouter.get('/authenticated', passport.authenticate('jwt', { session: false }
 
 userRouter.put('/updatetitle', (req, res) => {
     const { id, actor } = req.body
-    console.log(id);
     User.findOne({ _id: id }, (err, user) => {
         if (err) {
             console.log(err);
         }
         else {
             if (!user) {
-                console.log('not found');
                 res.status(404).send()
             }
             else {
@@ -163,7 +155,7 @@ userRouter.put('/updatetitle', (req, res) => {
                         res.status(500).send()
                     }
                     else {
-                        res.status(200).json({update:updatedtitle})
+                        res.status(200).json({ update: updatedtitle })
                     }
                 })
 
@@ -172,10 +164,9 @@ userRouter.put('/updatetitle', (req, res) => {
         }
     })
 })
-userRouter.put('/updatereelsanddemos',(req,res)=>{
-    const {email, reelsAndDemos} = req.body
-    console.log(reelsAndDemos);
-    User.findOne({email:email},(err,user)=>{
+userRouter.put('/updatereelsanddemos', (req, res) => {
+    const { email } = req.body
+    User.findOne({ email: email }, (err, user) => {
         if (err) {
             console.log(err);
         }
@@ -185,9 +176,11 @@ userRouter.put('/updatereelsanddemos',(req,res)=>{
                 res.status(404).send()
             }
             else {
-                if (reelsAndDemos) {
-                    console.log('okok');
-                    user.reelsAndDemos = [...user.reelsAndDemos, reelsAndDemos]
+                if (req.body.reelsAndDemos) {
+                    user.reelsAndDemos = [...user.reelsAndDemos, req.body.reelsAndDemos]
+                }
+                if (req.body.excerpts) {
+                    user.excerpts = [...user.excerpts, req.body.excerpts]
                 }
                 user.save((err, updatedUser) => {
                     if (err) {
@@ -205,7 +198,6 @@ userRouter.put('/updatereelsanddemos',(req,res)=>{
 userRouter.put('/update', (req, res) => {
     // const {id} = req.params
     const { id, firstname, middlename, lastname, dob, csc, password } = req.body
-    console.log(req.body);
     User.findOne({ _id: id }, (err, user) => {
         if (err) {
             console.log(err);
@@ -231,7 +223,7 @@ userRouter.put('/update', (req, res) => {
                 user.dob_day = dob_day
                 user.dob_month = dob_month
                 user.dob_year = dob_year
-                if(password!==""){
+                if (password !== "") {
                     user.password = password
                 }
                 user.save((err, updatedUser) => {
@@ -243,6 +235,32 @@ userRouter.put('/update', (req, res) => {
                         res.send(updatedUser)
                     }
                 })
+            }
+        }
+    })
+})
+userRouter.put('/delete', (req, res) => {
+    const { email, key } = req.body
+    User.findOne({ email: email }, (err, user) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            if (!user) {
+                res.status(404).send()
+            }
+            else {
+                user.reelsAndDemos.splice(key, 1)
+                user.save((err, updatedtitle) => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send()
+                    }
+                    else {
+                        res.send(updatedtitle)
+                    }
+                })
+
             }
         }
     })

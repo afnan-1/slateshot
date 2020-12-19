@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AuthContext } from '../../../Context/AuthContext';
 import axios from 'axios';
 import AuthServices from '../../../AuthServices/AuthServices';
+import Select from "react-select";
+
 const customStyles = {
     content: {
         top: '50%',
@@ -39,6 +41,12 @@ function ReelsAndDemos() {
     const classes = useStyles();
     const [title, setTitle] = useState('')
     const [showModal, setShowModal] = useState(false)
+    const options = [
+        { value: 'Commercial', label: 'Commercial' },
+        { value: 'Theatrical', label: 'Theatrical' },
+        { value: 'Voiceover', label: 'Voiceover' },
+    ];
+    const [selectedOption, setSelectedOption] = useState(null);
     const handleOpenModal = () => {
         setShowModal(true)
     }
@@ -61,7 +69,7 @@ function ReelsAndDemos() {
         localStorage.setItem('timer',JSON.stringify(true))
         const formData = new FormData();
         formData.append('reels', e.target.files[0]);
-        formData.append('title', title)
+        formData.append('title', selectedOption.value)
         formData.append('email', authContext.user.email)
         formData.append('key',makeid(5))
         try {
@@ -74,7 +82,7 @@ function ReelsAndDemos() {
             key = key+'.mp4'
             const user = {
                 email:authContext.user.email,
-                reelsAndDemos:[title,key]
+                reelsAndDemos:[selectedOption.value,key]
             }
             AuthServices.updateReelsDemos(user)
             .then(data=>{
@@ -104,6 +112,11 @@ function ReelsAndDemos() {
 
                 <h1>Reels And Demos</h1>
                 <hr/>
+                <Select
+                        defaultValue={selectedOption}
+                        onChange={setSelectedOption}
+                        options={options}
+                    />
                 <Button
                     fullWidth
                     variant="contained"
@@ -113,10 +126,6 @@ function ReelsAndDemos() {
                     <input name='reels' onChange={handleVideoUpload} className='input__btn__upload' type="file" style={{ opacity: 0, width: '80%', position: 'fixed' }}/>
                     Add Reels and Demos
           </Button>
-              <div className="container">
-              <input className="form-control" value={title} onChange={handleChange} type="text" placeholder="Enter Title for reels" />
-              </div>
-             
                 
             </Modal>
         </>

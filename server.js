@@ -68,10 +68,18 @@ app.post('/uploadreels',(req,res)=>{
       console.error(err);
       return res.status(500).send(err);
     }
+    if (file.name.split('.')[1] !== 'mp4') {
+      fs.rename(`./client/public/uploads/${email}/${file.name}`, `./client/public/uploads/${email}/${key}.mp3`, function (err) {
+        if (err) console.log('ERROR: ' + err);
+        res.json({ key: key, filePath: `/uploads/${file.name}` });
+      });
+    }
+    else{
     fs.rename(`./client/public/uploads/${email}/${file.name}`, `./client/public/uploads/${email}/${key}.mp4`, function (err) {
       if (err) console.log('ERROR: ' + err);
       res.json({ key: key, filePath: `/uploads/${file.name}` });
     });
+  }
 
   })
 })

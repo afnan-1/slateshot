@@ -42,9 +42,9 @@ function PersonelInfo(props) {
                 </source>
             </video>
                 <h1 className="h6 mb-3 mt-3 font-weight-bold text-gray-900">Personal Info</h1>
-                <p className="mb-2"><i className="fas fa-user-circle fa-fw" /> Known For - {props.jadu}</p>
+                <p className="mb-2"><i className="fas fa-user-circle fa-fw" /> Known For - {props.actor}</p>
                 <p className="mb-2"><i className="fas fa-venus-mars fa-fw" /> Gender - {props.gender.charAt(0).toUpperCase()+props.gender.slice(1)}</p>
-                <p className="mb-2"><i className="fas fa-calendar-alt fa-fw" /> Date of Birth - {props.year}-{props.month}-{props.day}</p>
+                <p className="mb-2"><i className="fas fa-calendar-alt fa-fw" /> Date of Birth - {props.month}-{props.day}-{props.year}</p>
                 <p className="mb-2"><i className="fas fa-map-marker-alt fa-fw" /> {props.city}, {props.state}, {props.country}</p>
             </div>
         </div>

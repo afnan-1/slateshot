@@ -34,13 +34,31 @@ function Index(props) {
             setUsers(data)
         })
     }, [])
+    async function fetchData() {            
+        await axios.get(`http://localhost:3000/uploads/${props.email}/picture.jpg`).then((response) => {
+            setPhoto(`/uploads/${props.email}/picture.jpg`)
+        }).catch((error) => {
+            setPhoto(`/uploads/default/picture.jpg`)
+        })
+        await axios.get(`http://localhost:3000/uploads/${props.email}/video.mp4`).then((response) => {
+            setVideo(`/uploads/${props.email}/video.mp4`)
+        }).catch((error) => {
+            setVideo(null)
+        })
+    }
+    fetchData()
     const dumb = () => {
-
     }
     const handleClick = () => {
         console.log(videoRef);
         sethandle(!handle)
-        handle ? videoRef.current.pause() :videoRef.current.play()
+        if(video){
+            handle ? videoRef.current.pause() :videoRef.current.play()
+        }
+        else{
+            dumb()
+        }
+      
     }
     return (
         <div>
@@ -49,7 +67,7 @@ function Index(props) {
                     <div>
                         <video
                             poster={`/uploads/${props.email}/picture.jpg`}
-                            height='150'
+                            height='160'
                             width='100%'
                             ref={videoRef}
                         // style={{ maxWidth: props.width, maxHeight: props.height }}
@@ -59,12 +77,12 @@ function Index(props) {
                         </video>
                     </div>
                     <div className="content">
-                        <div className="buttons">
+                        <div className="buttons p-0">
                             <PersonIcon className='icons' onClick={() => history.push(`/profile/${props.username}`)} />
-                            <EditIcon className='icons2' onClick={() => history.push('/edit')} />
+                            {/* <EditIcon className='icons2' onClick={() => history.push('/edit')} /> */}
                             <PlayArrowIcon className='icons1' onClick={handleClick} />
                         </div>
-                        <span className="username">{props.username}</span>
+                        <span className="username text-dark">{props.firstname.toUpperCase()} {props.lastname.toUpperCase()}</span>
                     </div>
                 </div>
         </div>
