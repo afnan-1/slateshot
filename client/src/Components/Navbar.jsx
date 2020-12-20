@@ -17,7 +17,7 @@ const Navbar = props => {
                 setIsAuthenticated(false);
             }
         });
-       
+
     }
     const unauthenticatedNavBar = () => {
         return (

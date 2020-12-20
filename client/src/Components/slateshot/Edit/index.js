@@ -7,8 +7,8 @@ import { useHistory } from 'react-router-dom';
 function Index(props) {
     const authContext = useContext(AuthContext);
     const history = useHistory()
-    const {isAuthenticated} = useContext(AuthContext);
-    const [auth,setAuth] = useState(isAuthenticated)
+    const { isAuthenticated } = useContext(AuthContext);
+    const [auth, setAuth] = useState(isAuthenticated)
     const style = {
         main: {
             height: props.height,
@@ -25,19 +25,16 @@ function Index(props) {
     const [photo, setPhoto] = useState(null)
     const [video, setVideo] = useState(null)
     useEffect(() => {
-      if(localStorage.getItem('googleusername'))
-                {}
-        
-      if(localStorage.getItem('facebookusername'))
-                {}
-        
-     else if (!isAuthenticated){
+        if (localStorage.getItem('googleusername')) { }
+
+        if (localStorage.getItem('facebookusername')) { }
+
+        else if (!isAuthenticated) {
             // history.push("/login");
         }
         fetchData()
     })
-    console.log(user);
-    async function fetchData() {            
+    async function fetchData() {
         await axios.get(`http://localhost:3000/uploads/${user.email}/picture.jpg`).then((response) => {
             setPhoto(`/uploads/${user.email}/picture.jpg`)
         }).catch((error) => {
@@ -75,7 +72,7 @@ function Index(props) {
     };
 
     const handleVideoUpload = async (e) => {
-        localStorage.setItem('timer',JSON.stringify(true))
+        localStorage.setItem('timer', JSON.stringify(true))
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
         formData.append('name', user.email)
@@ -87,13 +84,13 @@ function Index(props) {
             });
             const { fileName, filePath } = res.data;
             setVideo(String(filePath).split('s/')[0] + 's/' + user.email + '/video.mp4')
-           
+
             history.push('/')
         } catch (err) {
             console.log(err);
         }
     };
-    const dumb=()=>{  
+    const dumb = () => {
     }
 
     return (
@@ -103,35 +100,35 @@ function Index(props) {
                     poster={photo}
                     height='300'
                     width='100%'
-                    style={{ width:'100%', objectFit:'cover' }}
-                    onClick={video?handleClick:dumb}>
+                    style={{ width: '100%', objectFit: 'cover' }}
+                    onClick={video ? handleClick : dumb}>
                     <source src={video ? video : `${process.env.PUBLIC_URL}/uploads/${user.email}/video.mp4`} type="video/mp4">
                     </source>
                 </video>
-            <div className="content">
-                <span className="username">{props.username}</span>
-                <div className="edit__btns col-lg-12 col-sm-12 col-xs-12 pl-0 pr-0">
-                    <div className='btn1'>
-                        <PersonIcon className='btn__icon' />
-                        <label className='label py-1'>
-                            Manage Photo
-                        <input name='pic' className='input__btn__upload' type="file" style={{ opacity: 0, width: '0px',display:'none', position: 'fixed', marginLeft: '-120px' }}
-                                onChange={handlePhotoUpload}/>
+                <div className="content">
+                    <span className="username">{props.username}</span>
+                    <div className="edit__btns col-lg-12 col-sm-12 col-xs-12 pl-0 pr-0">
+                        <div className='btn1'>
+                            <PersonIcon className='btn__icon' />
+                            <label className='label py-1'>
+                                Manage Photo
+                        <input name='pic' className='input__btn__upload' type="file" style={{ opacity: 0, width: '0px', display: 'none', position: 'fixed', marginLeft: '-120px' }}
+                                    onChange={handlePhotoUpload} />
 
-                        </label>
-                    </div>
-                    <div className='btn1'>
-                        <PersonIcon className='btn__icon' />
-                        <label className='label py-1'>
-                            Add Slateshot
-                        <input name='video' className='input__btn__upload' type="file" style={{ opacity: 0,display:'none', width: '0px', position: 'fixed', marginLeft: '-120px' }}
-                                onChange={handleVideoUpload} />
-                        </label>
+                            </label>
+                        </div>
+                        <div className='btn1'>
+                            <PersonIcon className='btn__icon' />
+                            <label className='label py-1'>
+                                Add Slateshot
+                        <input name='video' className='input__btn__upload' type="file" style={{ opacity: 0, display: 'none', width: '0px', position: 'fixed', marginLeft: '-120px' }}
+                                    onChange={handleVideoUpload} />
+                            </label>
+                        </div>
                     </div>
                 </div>
+                <PersonelInfo userr={user} />
             </div>
-            <PersonelInfo  userr={user} />
-        </div>
         </div>
     )
 }

@@ -68,7 +68,7 @@ function FinalStep(props) {
                             variant="outlined"
                             margin="normal"
                             fullWidth
-                            disabled={localStorage.getItem("facebookusername") || localStorage.getItem("googleusername")?true:false}
+                            disabled={localStorage.getItem("facebookusername") || localStorage.getItem("googleusername") ? true : false}
                             onChange={onChange}
                             name="password"
                             label="Password"
@@ -92,7 +92,7 @@ function FinalStep(props) {
                             autoComplete="email"
                         />
                         <TextField
-                            value={localStorage.getItem("facebookusername") || localStorage.getItem("googleusername")?user.email:authContext.email}
+                            value={localStorage.getItem("facebookusername") || localStorage.getItem("googleusername") ? user.email : authContext.email}
                             variant="outlined"
                             margin="normal"
                             required
@@ -119,25 +119,25 @@ function FinalStep(props) {
                             <input className="form-check-input ml-2 mr-1" type="radio" onChange={onChange} value="No" name="older18" id='no' />
                             <label className="form-check-label" htmlFor="no">No</label>
                         </div>
-                    <div className="px-3">
-                        <Dob onChange={onChange} dob={user.dob} day={day} month={month} year={year} />
+                        <div className="px-3">
+                            <Dob onChange={onChange} dob={user.dob} day={day} month={month} year={year} />
                         </div>
                         <CSC city={city} country={country} region={region} user={user.csc} />
 
-                        
+
                     </div>
                     <Button
-                            type="submit"
-                            fullWidth
-                            disabled={user.username === '' || user.email==='' || user.gender==='' || authContext.email==='' ? true : false}
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                        >
-                            Register
+                        type="submit"
+                        fullWidth
+                        disabled={user.username === '' || user.email === '' || user.gender === '' || authContext.email === '' ? true : false}
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                    >
+                        Register
                         </Button>
                 </div>
-              
+
             </Container>
         </form>
     )

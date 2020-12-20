@@ -134,12 +134,12 @@ function Editform(props) {
                             margin="dense"
                             fullWidth
                             type='password'
-                            disabled={localStorage.getItem("facebookusername") || localStorage.getItem("googleusername")?true:false}
+                            disabled={localStorage.getItem("facebookusername") || localStorage.getItem("googleusername") ? true : false}
                             error={errors.lasttnameErr}
                             helperText={errors.lastnameErr && 'Username is required'}
                             onChange={onChange}
                             name="password"
-                            label={(localStorage.getItem("facebookusername") || localStorage.getItem("googleusername"))?"No Password - Social login":"New-Password"}
+                            label={(localStorage.getItem("facebookusername") || localStorage.getItem("googleusername")) ? "No Password - Social login" : "New-Password"}
                             id="password"
                             autoComplete="password"
                         />

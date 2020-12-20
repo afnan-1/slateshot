@@ -70,7 +70,7 @@ function Register() {
         e.preventDefault();
         console.log('helo');
         setEmailErr(false)
-        if(localStorage.getItem("facebookusername") || localStorage.getItem("googleusername")){
+        if (localStorage.getItem("facebookusername") || localStorage.getItem("googleusername")) {
             authContext.setEmail(user.email)
         }
         if (authContext.email === user.email) {

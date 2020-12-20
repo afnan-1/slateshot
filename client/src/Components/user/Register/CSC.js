@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from 'react'
 import csc from 'country-state-city'
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     formControl: {
         marginTop: theme.spacing(2),
         minWidth: 120,
-        width:'100%',
+        width: '100%',
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
@@ -34,14 +34,14 @@ function CSC(props) {
     const options = [csc.getAllCountries().map((v, i) => ([v.name, v.id]))]
     const dropdownCountries = options[0].map((v, i) => v);
     let dropDownRegion = csc.getStatesOfCountry(code)
-        if(dropDownRegion!==undefined){
-        dropDownRegion = dropDownRegion.map((v,i)=> ([v.name,v.id]));
-        }
+    if (dropDownRegion !== undefined) {
+        dropDownRegion = dropDownRegion.map((v, i) => ([v.name, v.id]));
+    }
     let codeRegion = cscRegion.split(',')[1];
     let dropDownCity = csc.getCitiesOfState(codeRegion);
-    if(dropDownCity!==undefined){
-        dropDownCity = dropDownCity.map((v,i)=> ([v.name,v.id]));
-        }
+    if (dropDownCity !== undefined) {
+        dropDownCity = dropDownCity.map((v, i) => ([v.name, v.id]));
+    }
     return (
         <>
             <FormControl variant="outlined" className={classes.formControl}>
@@ -49,7 +49,7 @@ function CSC(props) {
                 <Select
                     native
                     value={cscCountry}
-                    onChange={(e)=>{handleChangeCountry(e);country(e.target.value.split(",")[0]);setcscCity('')}}
+                    onChange={(e) => { handleChangeCountry(e); country(e.target.value.split(",")[0]); setcscCity('') }}
                     label="Country"
                     inputProps={{
                         name: 'country',
@@ -67,7 +67,7 @@ function CSC(props) {
                 <Select
                     native
                     value={cscRegion}
-                    onChange={(e)=>{handleChangeRegion(e);region(e.target.value.split(",")[0])}}
+                    onChange={(e) => { handleChangeRegion(e); region(e.target.value.split(",")[0]) }}
                     label="Region"
                     inputProps={{
                         name: 'region',
@@ -85,7 +85,7 @@ function CSC(props) {
                 <Select
                     native
                     value={cscCity}
-                    onChange={(e)=>{handleChangeCity(e);city(e.target.value.split(",")[0])}}
+                    onChange={(e) => { handleChangeCity(e); city(e.target.value.split(",")[0]) }}
                     label="City"
                     inputProps={{
                         name: 'city',

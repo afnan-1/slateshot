@@ -94,7 +94,7 @@ function Excerpts() {
             // console.log('key');
             // setVideo(String(filePath).split('s/')[0] + 's/' + user.email + '/video.mp4')
         } catch (err) {
-            console.log(err);
+            
         }
     };
     return (

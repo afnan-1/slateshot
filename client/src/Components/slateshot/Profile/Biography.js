@@ -17,6 +17,16 @@ function Biography(props) {
                 </div>
             </div>
             <div className="bg-white p-3 widget shadow rounded mb-4">
+                <h1 className="h6 d-inline mb-3 mt-0 font-weight-bold text-gray-900">Voice Over</h1>
+                <div className=" row mt-3">
+                    {props.voiceover ? props.voiceover.map((v, i) => {
+                        return <React.Fragment key={i}>
+                            <BiographyThumbnail voiceoverTitle={v[0]} keyvoiceover={i} audio={v[1]} email={props.email} />
+                        </React.Fragment>
+                    }) : ''}
+                </div>
+            </div>
+            <div className="bg-white p-3 widget shadow rounded mb-4">
                 <h1 className="h6 d-inline mb-3 mt-0 font-weight-bold text-gray-900">Excerpts</h1>
                 <div className=" row mt-3">
                     {props.excerpts ? props.excerpts.map((v, i) => {

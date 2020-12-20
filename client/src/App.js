@@ -23,7 +23,7 @@ function App() {
   const fusername = JSON.parse(localStorage.getItem('facebookusername'))
   const femail = JSON.parse(localStorage.getItem('facebookemail'))
   const [users, setUsers] = useState(null)
-
+  console.log(authContext.isAuthenticated);
 
   useEffect(() => {
     AuthServices.profile().then(data => {
@@ -74,60 +74,60 @@ function App() {
 
   return (
     <Router>
-       <Navbar />
+      <Navbar />
       <Switch>
-     
-      <Route path='/register'>
-        <Register />
-      </Route>
-      <Route path='/login'>
-        <Login />
-      </Route>
-      <Route exact path='/'>
-        <Dashboard />
-      </Route>
-      {console.log(users)}
-      <Route path={`/thumbnail`}>
-        <div className='row'>
-          {users ? Object.keys(users).map((v, i) => {
-            return <div className='m-2' key={i}>
-              <Thumbnail username={users[v].username}
-              email={users[v].email}
-              key={i}
-              height='180px'
-              width='160px'
-              firstname={users[v].firstname}
-              lastname={users[v].lastname}
-     />
-     </div>
-          }) : ''}
-        </div>
-      </Route>
-      <Route path='/edit'>
-        <Edit username={authContext.user.username}
-          user={authContext.user}
-        />
-      </Route>
-      {users ? Object.keys(users).map(v => {
-        return <Route path={`/profile/${users[v].username}`}>
-          <UserProfile username={users[v].username}
-            reels={users[v].reelsAndDemos}
-            excerpts={users[v].excerpts}
-            gender={users[v].gender}
-            day={users[v].dob_day}
-            firstname={users[v].firstname}
-            lastname={users[v].lastname}
-            year={users[v].dob_year}
-            month={users[v].dob_month}
-            actor={users[v].actor}
-            country={users[v].csc_country}
-            state={users[v].csc_state}
-            city={users[v].csc_city}
-            email={users[v].email}
+
+        <Route path='/register'>
+          <Register />
+        </Route>
+        <Route path='/login'>
+          <Login />
+        </Route>
+        <Route exact path='/'>
+          <Dashboard />
+        </Route>
+        <Route path={`/thumbnail`}>
+          <div className='row'>
+            {users ? Object.keys(users).map((v, i) => {
+              return <div className='m-2' key={i}>
+                <Thumbnail username={users[v].username}
+                  email={users[v].email}
+                  key={i}
+                  height='180px'
+                  width='160px'
+                  firstname={users[v].firstname}
+                  lastname={users[v].lastname}
+                />
+              </div>
+            }) : ''}
+          </div>
+        </Route>
+        <Route path='/edit'>
+          <Edit username={authContext.user.username}
+            user={authContext.user}
           />
         </Route>
-      }) : ''}
-        </Switch>
+        {users ? Object.keys(users).map(v => {
+          return <Route key={v} path={`/profile/${users[v].username}`}>
+            <UserProfile username={users[v].username}
+              reels={users[v].reelsAndDemos}
+              excerpts={users[v].excerpts}
+              gender={users[v].gender}
+              voiceover={users[v].voiceover}
+              day={users[v].dob_day}
+              firstname={users[v].firstname}
+              lastname={users[v].lastname}
+              year={users[v].dob_year}
+              month={users[v].dob_month}
+              actor={users[v].actor}
+              country={users[v].csc_country}
+              state={users[v].csc_state}
+              city={users[v].csc_city}
+              email={users[v].email}
+            />
+          </Route>
+        }) : ''}
+      </Switch>
     </Router>
   );
 }

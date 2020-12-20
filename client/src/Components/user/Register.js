@@ -40,7 +40,7 @@ const Register = props => {
                 resetForm();
                 if (!message.msgError) {
                     timerID = setTimeout(() => {
-                        if (localStorage.getItem('facebookemail')){
+                        if (localStorage.getItem('facebookemail')) {
                             history.push('/edit')
                         }
                         history.push('/login');
@@ -55,7 +55,7 @@ const Register = props => {
     return (
         <div className='container'>
             <RegisterFinal />
-            
+
         </div>
     )
 }

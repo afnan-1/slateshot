@@ -8,7 +8,7 @@ function GoogleLoginComponent() {
     // const [user, setUser] = useState({ username: null })
     let history = useHistory()
     const responseGoogle = (response) => {
-        const user={username: response.profileObj.name, email: response.profileObj.email }
+        const user = { username: response.profileObj.name, email: response.profileObj.email }
 
         AuthService.loginGoogle(user).then(data => {
             console.log(data);
@@ -21,7 +21,7 @@ function GoogleLoginComponent() {
             else if (isAuthenticated) {
                 localStorage.setItem('googleusername', JSON.stringify(response.profileObj.name))
                 localStorage.setItem('googleemail', JSON.stringify(response.profileObj.email))
-                authContext.setUser({...authContext.user,...user});
+                authContext.setUser({ ...authContext.user, ...user });
                 authContext.setIsAuthenticated(isAuthenticated);
                 history.push('/edit');
             }

@@ -73,7 +73,9 @@ userRouter.post('/register', (req, res) => {
     })
 })
 userRouter.post('/login', passport.authenticate('local', { session: false }), (req, res) => {
+    console.log('helo');
     if (req.isAuthenticated()) {
+        console.log('login');
         const { _id, username, role, email } = req.user;
         const token = signToken(_id);
         res.cookie('access_token', token, { httpOnly: true, sameSite: true });
@@ -182,6 +184,9 @@ userRouter.put('/updatereelsanddemos', (req, res) => {
                 if (req.body.excerpts) {
                     user.excerpts = [...user.excerpts, req.body.excerpts]
                 }
+                if(req.body.voiceover){
+                    user.voiceover = [...user.voiceover, req.body.voiceover]
+                }
                 user.save((err, updatedUser) => {
                     if (err) {
                         console.log(err);
@@ -240,7 +245,7 @@ userRouter.put('/update', (req, res) => {
     })
 })
 userRouter.put('/delete', (req, res) => {
-    const { email, key } = req.body
+    const { email, key,reels, excerpts, voiceover } = req.body
     User.findOne({ email: email }, (err, user) => {
         if (err) {
             console.log(err);
@@ -250,7 +255,15 @@ userRouter.put('/delete', (req, res) => {
                 res.status(404).send()
             }
             else {
+                if(reels){
                 user.reelsAndDemos.splice(key, 1)
+                }
+                if(excerpts){
+                    user.excerpts.splice(key,1)
+                }
+                if(voiceover){
+                    user.voiceover.splice(key,1)
+                }
                 user.save((err, updatedtitle) => {
                     if (err) {
                         console.log(err);

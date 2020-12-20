@@ -49,11 +49,29 @@ function BiographyThumbnail(props) {
               <h6 className=" text-center text-gray-900 mb-1">{props.excerpts}</h6>
             </div>
             <div className=''>
-            <ReactAudioPlayer
-              src={`/uploads/${props.email}/${props.audio}`}
-              controls
-              className="w-100"
-            />
+              <ReactAudioPlayer
+                src={`/uploads/${props.email}/${props.audio}`}
+                controls
+                className="w-100"
+              />
+            </div>
+
+          </div>
+        </div>
+      }
+       {
+        props.voiceoverTitle &&
+        <div className="col-xl-4 col-md-6 mt-4">
+          <div className="card m-card shadow border-0 h-100">
+            <div className="card-title text-center pt-3">
+              <h5 className="card-title text-center ml-5 text-gray-900 mb-0">{props.voiceoverTitle}</h5>
+            </div>
+            <div className=''>
+              <ReactAudioPlayer
+                src={`/uploads/${props.email}/${props.audio}`}
+                controls
+                className="w-100"
+              />
             </div>
 
           </div>

@@ -5,7 +5,7 @@ import './personelinfo.css'
 import { AuthContext } from '../../../Context/AuthContext';
 import AuthServices from '../../../AuthServices/AuthServices';
 function PersonelInfo(props) {
-    const {userr} = props
+    const { userr } = props
     const authContext = useContext(AuthContext)
     const [editData, setEditData] = useState({
         actor: authContext.user.actor,
@@ -16,7 +16,7 @@ function PersonelInfo(props) {
     const [cscHook, setCsc] = useState('')
     const handleChangeKnownFor = (e) => {
         const user = {
-            actor:authContext.user.actor,
+            actor: authContext.user.actor,
             id: authContext.user._id
         }
         AuthServices.title(user)
@@ -30,7 +30,7 @@ function PersonelInfo(props) {
     }
     const handleChange = (e) => {
         setEditData({ ...editData, actor: e.target.value })
-        authContext.setUser({...authContext.user,actor:e.target.value})
+        authContext.setUser({ ...authContext.user, actor: e.target.value })
     }
     const dumb = () => {
         setKnownFor(!knownFor)

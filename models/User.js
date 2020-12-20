@@ -60,6 +60,9 @@ const UserSchema = new mongoose.Schema({
     },
     excerpts:{
         type:Array
+    },
+    voiceover:{
+        type:Array
     }
 });
 UserSchema.pre('save', function (next) {

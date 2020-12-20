@@ -18,7 +18,7 @@ function Index(props) {
         setUsers(data)
     })
     useEffect(() => {
-       
+
     }, [])
     return (
         <div>

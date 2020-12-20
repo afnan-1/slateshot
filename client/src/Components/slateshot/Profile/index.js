@@ -1,37 +1,37 @@
-import React, { useState,useContext,useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios';
-import {AuthContext} from '../../../Context/AuthContext';
+import { AuthContext } from '../../../Context/AuthContext';
 import AuthService from '../../../AuthServices/AuthServices';
 import Header from './Header';
 import PersonelInfo from './PersonelInfo';
 import Biography from './Biography';
 function Index(props) {
-    const authContext = useContext(AuthContext);
-    const [handle, sethandle] = useState(false)
-    const [users, setUsers] = useState(null)
-    const style = {
-        main:{
-            height: props.height,
-            width: props.width,
-            minWidth:'160px',
-            minHeight:'220px',
-        }
+  const authContext = useContext(AuthContext);
+  const [handle, sethandle] = useState(false)
+  const [users, setUsers] = useState(null)
+  const style = {
+    main: {
+      height: props.height,
+      width: props.width,
+      minWidth: '160px',
+      minHeight: '220px',
     }
-    useEffect(() => {
+  }
+  useEffect(() => {
     localStorage.removeItem('timer')
-    }, [])
-    const handleClick = (e) => {
-        if(e.target.src!==undefined){
-        sethandle(!handle)
-        try{
+  }, [])
+  const handleClick = (e) => {
+    if (e.target.src !== undefined) {
+      sethandle(!handle)
+      try {
         handle ? e.target.pause() : e.target.play()
-        }
-        catch(err){}
+      }
+      catch (err) { }
     }
-}
-    return (
-        <div>
- <div>
+  }
+  return (
+    <div>
+      <div>
         {/* Page Wrapper */}
         <div id="wrapper">
           {/* Sidebar */}
@@ -41,13 +41,13 @@ function Index(props) {
             {/* Main Content */}
             <div id="content">
               {/* Topbar */}
-             <Header />
+              <Header />
               {/* End of Topbar */}
               {/* Begin Page Content */}
               <div className="container-fluid">
                 <div className="row">
-                 <PersonelInfo email={props.email} gender={props.gender} year={props.year} month={props.month} day={props.day} city={props.city}
-                 country={props.country} state={props.state} actor={props.actor} />
+                  <PersonelInfo email={props.email} gender={props.gender} year={props.year} month={props.month} day={props.day} city={props.city}
+                    country={props.country} state={props.state} actor={props.actor} />
                   <div className="col-xl-9 col-lg-9">
                     <div className="bg-white info-header shadow rounded mb-4">
                       <div className="row d-flex align-items-center justify-content-between p-3 border-bottom">
@@ -57,8 +57,8 @@ function Index(props) {
                         </div>
                       </div>
                     </div>
-                  {/* Biography */}
-                    <Biography email={props.email} reels={props.reels} excerpts={props.excerpts} />
+                    {/* Biography */}
+                    <Biography email={props.email} reels={props.reels} voiceover={props.voiceover} excerpts={props.excerpts} />
                   </div>
                 </div>
               </div>
@@ -106,8 +106,8 @@ function Index(props) {
         {/* Custom scripts for all pages*/}
       </div>
     </div>
-   
-    )
+
+  )
 }
 
 export default Index
