@@ -12,7 +12,7 @@ const customStyles = {
         top: '50%',
         left: '50%',
         right: 'auto',
-        bottom: '-22%',
+        bottom: '-36%',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
     }
@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 function Excerpts() {
     const authContext = useContext(AuthContext)
     const classes = useStyles();
+    const [title, setTitle] = useState('')
     const [excerpts, setExcerpts] = useState('')
     const [showModal, setShowModal] = useState(false)
     const options = [
@@ -55,6 +56,9 @@ function Excerpts() {
     }
     const handleChangeExcerpts = (e) => {
         setExcerpts(e.target.value)
+    }
+    const handleChange = (e) => {
+        setTitle(e.target.value)
     }
     const makeid = (length) => {
         let result = '';
@@ -82,7 +86,7 @@ function Excerpts() {
             key = key + '.mp3'
             const user = {
                 email: authContext.user.email,
-                excerpts: [selectedOption.value, key, excerpts]
+                excerpts: [selectedOption.value, key, excerpts, title]
             }
             AuthServices.updateReelsDemos(user)
                 .then(data => {
@@ -112,13 +116,12 @@ function Excerpts() {
                 <h1>Excerpts</h1>
                 <hr />
                 <div className="container">
-                    {console.log(selectedOption)}
                     <Select
                         defaultValue={selectedOption}
                         onChange={setSelectedOption}
                         options={options}
                     />
-                    {/* <input className="form-control" value={title} name="title" onChange={handleChange} type="text" placeholder="Enter Title" /> */}
+                    <input className="form-control mt-2" value={title} name="title" onChange={handleChange} type="text" placeholder="Enter Title" />
                     <textarea className="form-control mt-2" value={excerpts} name="excerpts" onChange={handleChangeExcerpts} type="text" placeholder="Enter Excerpts" rows='10' cols='50' />
                 </div>
                 <Button

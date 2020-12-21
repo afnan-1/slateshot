@@ -43,7 +43,7 @@ function BiographyThumbnail(props) {
         <div className="col-xl-6 col-md-6 mt-4">
           <div className="card m-card shadow border-0 h-100">
             <div className="card-title pt-3">
-              <h5 className="card-title text-center text-gray-900 mb-0">{props.excerptsTitle}</h5>
+              <h5 className="card-title text-center text-gray-900 mb-0">{props.title2}</h5>
             </div>
             <div className="card-body pt-1">
               <h6 className=" text-center text-gray-900 mb-1">{props.excerpts}</h6>
@@ -64,7 +64,7 @@ function BiographyThumbnail(props) {
         <div className="col-xl-4 col-md-6 mt-4">
           <div className="card m-card shadow border-0 h-100">
             <div className="card-title text-center pt-3">
-              <h5 className="card-title text-center ml-5 text-gray-900 mb-0">{props.voiceoverTitle}</h5>
+              <h5 className="card-title text-center text-gray-900 mb-0">{props.voiceoverTitle}</h5>
             </div>
             <div className=''>
               <ReactAudioPlayer

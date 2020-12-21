@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CSC from './CSC'
 import Dob from './Dob'
+import {Link} from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthContext';
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -31,14 +32,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 function FinalStep(props) {
     const classes = useStyles();
-    const [errors, setErr] = useState({
-        usernameErr: false,
-        passwordErr: false,
-        emailErr: false,
-        confirmEmailErr: false,
-    })
+    const [legal_checkbox, setLegalCheckbox] = useState(false)
     const authContext = useContext(AuthContext);
-    const { onChange, user, day, month, year, country, city, region, checkbox, onSubmit, showerr, userErr, emailErr } = props
+    const { onChange, user, day, month, year, country, city, region, onSubmit, showerr, userErr, emailErr, user_public } = props
     return (
         <form onSubmit={onSubmit}>
             <Container component="main" maxWidth="xs" className={'bg-white py-2 my-2'}>
@@ -105,14 +101,14 @@ function FinalStep(props) {
                             id="confirmemail"
                             autoComplete="confirmemail"
                         />
-                        <label className="my-2">Gender (to play):</label>
+                        <label className="my-2 mx-2">Gender (to play):</label>
                         <div className="form-check form-check-inline">
                             <input className="form-check-input ml-2 mr-1" type="radio" onChange={onChange} id='male' value="male" name="gender" />
                             <label className="form-check-label " htmlFor="male">Male</label>
                             <input className="form-check-input ml-2 mr-1" type="radio" onChange={onChange} value="female" id='female' name="gender" />
                             <label className="form-check-label" htmlFor="female">Female</label>
                         </div>
-                        <label className='mt-3'>Are you 18 or older or legally emancipated?</label>
+                        <label className='mt-3 ml-2'>Are you 18 or older or legally emancipated?</label>
                         <div className="form-check form-check-inline">
                             <input className="form-check-input ml-2 mr-1" type="radio" onChange={onChange} id='yes' value="Yes" name="older18" />
                             <label className="form-check-label " htmlFor="yes">Yes</label>
@@ -123,13 +119,21 @@ function FinalStep(props) {
                             <Dob onChange={onChange} dob={user.dob} day={day} month={month} year={year} />
                         </div>
                         <CSC city={city} country={country} region={region} user={user.csc} />
-
-
+                        <div className="ml-1 mt-2 custom-control custom-switch">
+                            <input type="checkbox" onChange={user_public} className="custom-control-input" id="customSwitch1" />
+                            <label class="custom-control-label" for="customSwitch1">User Public</label>
+                        </div>
+                        <div className='p-1'>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" onChange={()=>setLegalCheckbox(!legal_checkbox)} class="custom-control-input" id="customCheck1" />
+                                <label class="custom-control-label" for="customCheck1">I Agree to <Link to='/cookies'>Cookies, </Link><Link to='communityguidelines'>Community Guidelines, </Link> <Link to='privicypolicy'>Privacy Policy, </Link> & <Link to='/termofuse'>Terms of Use</Link></label>
+                            </div>
+                        </div>
                     </div>
                     <Button
                         type="submit"
                         fullWidth
-                        disabled={user.username === '' || user.email === '' || user.gender === '' || authContext.email === '' ? true : false}
+                        disabled={user.username === '' || user.email === '' || user.gender === '' || authContext.email === '' || legal_checkbox===false ? true : false}
                         variant="contained"
                         color="primary"
                         className={classes.submit}

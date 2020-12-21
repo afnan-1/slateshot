@@ -48,6 +48,10 @@ function PersonelInfo(props) {
             <p className="mb-2"><i className="fas fa-venus-mars fa-fw" /> Gender - {user.gender}</p>
             <p className="mb-2"><i className="fas fa-calendar-alt fa-fw" /> Date of Birth -{dobHook === "" ? user.dob_month : dobHook.month}-{dobHook === "" ? user.dob_day : dobHook.day}-{dobHook === "" ? user.dob_year : dobHook.year}</p>
             <p className="mb-2"><i className="fas fa-map-marker-alt fa-fw" />{cscHook === "" ? user.csc_country : cscHook.country}, {cscHook === "" ? user.csc_state : cscHook.state}, {cscHook === "" ? user.csc_city : cscHook.city} </p>
+            <div>
+                <a href=''>More at IMDB</a>
+            <p className="mb-2"><i className='fa fa-phone-alt fa-fw' ></i> Contact Info: <a href="">Agent, Manager</a></p>
+            </div>
         </>
     )
 }

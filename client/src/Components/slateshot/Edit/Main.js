@@ -41,8 +41,25 @@ function Main(props) {
                           <h3 className="text-gray-900 mb-0 mt-0 font-weight-bold">{authContext.user.firstname} {authContext.user.lastname}</h3>
                           <p className="mb-0 text-gray-800"><small className="text-muted"><i className="fas fa-user-circle fa-fw fa-sm mr-1" /> {authContext.user.actor}</small></p>
                         </div>
+                        <div class="row d-flex align-items-center justify-content-between py-3 px-4">
+                              <div class="row mr-2">
+                                 <a href="#" class="btn btn-sm mr-1 btn-primary btn-circle">
+                                 <i class="fab fa-facebook-f"></i>
+                                 </a>
+                                 <a href="#" class="btn btn-sm mr-1 btn-danger btn-circle">
+                                 <i class="fab fa-youtube"></i>
+                                 </a>
+                                 <a href="#" class="btn btn-sm mr-1 btn-warning btn-circle">
+                                 <i class="fab fa-snapchat-ghost"></i>
+                                 </a>
+                                 <a href="#" class="btn btn-sm mr -1 btn-info btn-circle">
+                                 <i class="fab fa-twitter"></i>
+                                 </a>
+                              </div>
+                           </div>
                       </div>
                     </div>
+                    
                     {/* Biography */}
                     <Biography user={authContext.user} />
                   </div>

@@ -14,6 +14,10 @@ import UserProfile from './Components/slateshot/Profile/index'
 import AuthServices from './AuthServices/AuthServices';
 import Edit from './Components/slateshot/Edit/Main'
 import Thumbnail from './Components/slateshot/Thumbnail'
+import CommunityGuidlines from './Components/policies/CommunityGuidlines';
+import Cookies from './Components/policies/Cookies';
+import PrivicyPolicy from './Components/policies/PrivicyPolicy';
+import TermOfUse from './Components/policies/TermOfUse';
 function App() {
   const history = useHistory()
   const authContext = useContext(AuthContext);
@@ -127,6 +131,19 @@ function App() {
             />
           </Route>
         }) : ''}
+
+        <Route path='/cookies'>
+          <Cookies />
+        </Route>
+        <Route path='/communityguidelines'>
+        <CommunityGuidlines />
+        </Route>
+        <Route path='/privicypolicy'>
+        <PrivicyPolicy />
+        </Route>
+        <Route path='/termofuse'>
+        <TermOfUse />
+        </Route>
       </Switch>
     </Router>
   );

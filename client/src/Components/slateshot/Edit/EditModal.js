@@ -46,6 +46,7 @@ function EditModal(props) {
     const [showModal, setShowModal] = useState(false)
     const [user, setUser] = useState({
         id: authContext.user._id,
+        user_public:loggedUser.user_public,
         firstname: firstname, middlename: middlename, lastname: lastname, email: email, age: "N", gender: "", reelsAndDemos: [],
         username: "", password: "", dob: { dob_day: authContext.user.dob_day, dob_year: authContext.user.dob_year, dob_month: authContext.user.dob_month },
         csc: { country: loggedUser.csc_country, city: loggedUser.csc_city, state: loggedUser.csc_state }
@@ -53,6 +54,7 @@ function EditModal(props) {
     useEffect(() => {
         setUser({
             id: authContext.user._id,
+            user_public:loggedUser.user_public,
             firstname: firstname, middlename: middlename, lastname: lastname, email: email, age: "N", gender: "", reelsAndDemos: [],
             username: "", password: "", dob: { dob_day: authContext.user.dob_day, dob_year: authContext.user.dob_year, dob_month: authContext.user.dob_month },
             csc: { country: loggedUser.csc_country, city: loggedUser.csc_city, state: loggedUser.csc_state }
@@ -92,8 +94,11 @@ function EditModal(props) {
         setUser({ ...user, csc: { ...user.csc, city: e } })
     }
     const onChange = e => {
-        console.log(user);
         setUser({ ...user, [e.target.name]: e.target.value });
+    }
+    const userPublic=()=>{
+        setUser({...user,user_public:!user.user_public})
+        // authContext.setUser({...loggedUser, user_public:!loggedUser.user_public})
     }
     return (
         <>
@@ -113,6 +118,10 @@ function EditModal(props) {
                 </div>
                 <div className="px-3">
                     <CSC city={city} country={country} region={region} />
+                </div>
+                <div className="ml-3 mt-2 custom-control custom-switch">
+                    <input type="checkbox" onChange={userPublic} checked={user.user_public} className="custom-control-input" id="customSwitch1" />
+                    <label class="custom-control-label" for="customSwitch1">User Public</label>
                 </div>
                 <div className="px-3">
                     <Button

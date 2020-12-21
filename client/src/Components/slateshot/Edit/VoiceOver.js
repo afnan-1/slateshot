@@ -12,7 +12,7 @@ const customStyles = {
         top: '50%',
         left: '50%',
         right: 'auto',
-        bottom: '10%',
+        bottom: '-5%',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
     }
@@ -51,6 +51,12 @@ function VoiceOver() {
     const handleChange = (e) => {
         setTitle(e.target.value)
     }
+    const options = [
+        { value: 'Voiceover', label: 'Voiceover' },
+        {value:'Score', label:'Score'}
+    ];
+    const [selectedOption, setSelectedOption] = useState(null);
+
     const makeid = (length) => {
         let result = '';
         let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -77,22 +83,23 @@ function VoiceOver() {
             key = key + '.mp3'
             const user = {
                 email: authContext.user.email,
-                voiceover: [title, key]
+                voiceover: [title, key, selectedOption.value]
             }
             AuthServices.updateReelsDemos(user)
                 .then(data => {
+                    console.log(data);
                     handleCloseModal()
                     authContext.setUser(data)
                 })
                 .then(res => res)
         } catch (err) {
-            
+            console.log(err);
         }
     };
     return (
         <>
              <button className="btn btn btn-dark" onClick={handleOpenModal}>
-                Add Voice Over
+                Add Audio
             </button>
             <Modal
                 isOpen={showModal}
@@ -103,9 +110,12 @@ function VoiceOver() {
 
                 <h1>Voice Over</h1>
                 <hr />
-                <div className="container">
-                    <input className="form-control" value={title} name="title" onChange={handleChange} type="text" placeholder="Enter Title" />
-                </div>
+                <Select
+                    defaultValue={selectedOption}
+                    onChange={setSelectedOption}
+                    options={options}
+                />
+                    <input className="form-control mt-2" value={title} name="title" onChange={handleChange} type="text" placeholder="Enter Title" />
                 <Button
                     fullWidth
                     variant="contained"
@@ -113,7 +123,7 @@ function VoiceOver() {
                     className={classes.submit}
                 >
                     <input name='reels' onChange={handleAudioUpload} className='input__btn__upload' type="file" style={{ opacity: 0, width: '80%', position: 'fixed' }} />
-                    Add Excerpts Audio
+                    Add Audio
           </Button>
 
             </Modal>

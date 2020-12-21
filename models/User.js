@@ -63,6 +63,9 @@ const UserSchema = new mongoose.Schema({
     },
     voiceover:{
         type:Array
+    },
+    user_public:{
+        type:Boolean
     }
 });
 UserSchema.pre('save', function (next) {

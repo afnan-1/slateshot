@@ -83,7 +83,7 @@ function BiographyThumbnail(props) {
         <div className="col-xl-6 col-md-6 mt-4">
           <div className="card m-card shadow border-0 h-100">
             <div className="card-title text-center pt-3">
-              <h5 className="card-title text-center ml-5 d-inline text-gray-900 mb-0">{props.excerptsTitle}</h5>
+              <h5 className="card-title text-center ml-5 d-inline text-gray-900 mb-0">{props.title2}</h5>
               <button className="btn btn-dark float-right" onClick={deleteExcerpts}>Delete</button>
             </div>
             <div className="card-body pt-1">

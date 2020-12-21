@@ -22,10 +22,8 @@ function Index(props) {
     const style = {
 
         main: {
-            height: props.height,
-            width: props.width,
-            minWidth: '160px',
-            minHeight: '220px',
+            height: '180px',
+            width: '180px',
         }
     }
     const user = authContext.user
@@ -63,14 +61,14 @@ function Index(props) {
     return (
         <div>
 
-            <div className='slateshot' style={style.main}>
+            <div className='slateshot'>
                 <div>
                     <video
-                        poster={`/uploads/${props.email}/picture.jpg`}
-                        height='160'
+                        poster={photo}
+                        height='180'
                         width='100%'
                         ref={videoRef}
-                    // style={{ maxWidth: props.width, maxHeight: props.height }}
+                        style={style.main}
                     >
                         <source src={`/uploads/${props.email}/video.mp4`} type="video/mp4">
                         </source>

@@ -23,7 +23,7 @@ userRouter.post('/register', (req, res) => {
             res.status(400).json({ 'message': { msgbody: 'username is already taken', msgError: true } })
         }
         else {
-            const { firstname, email, gender, middlename, lastname, username, password, age, csc, dob, older18, reelsAndDemos } = req.body;
+            const { firstname, email, gender,user_public, middlename, lastname, username, password, age, csc, dob, older18, reelsAndDemos } = req.body;
             User.findOne({ email }, (err, user) => {
                 if (err) {
                     res.status(500).json({ 'message': { msgbody: 'error has occured', emailError: true, msgError: false } })
@@ -43,7 +43,7 @@ userRouter.post('/register', (req, res) => {
                         const newUser = new User({
                             firstname, email, gender, middlename, lastname, email, gender,
                             username, password, age, csc_country, csc_city,
-                            csc_state, dob_day, dob_year, dob_month, older18, reelsAndDemos
+                            csc_state, dob_day, dob_year, dob_month, older18, reelsAndDemos,user_public
                         })
                         newUser.save(err => {
                             if (err)
@@ -56,7 +56,7 @@ userRouter.post('/register', (req, res) => {
                         const newUser = new User({
                             firstname, email, gender, middlename, lastname, email, gender,
                             username, age, csc_country, csc_city,
-                            csc_state, dob_day, dob_year, dob_month, older18, reelsAndDemos
+                            csc_state, dob_day, dob_year, dob_month, older18, reelsAndDemos,user_public
                         })
                         newUser.save(err => {
                             if (err)
@@ -73,7 +73,6 @@ userRouter.post('/register', (req, res) => {
     })
 })
 userRouter.post('/login', passport.authenticate('local', { session: false }), (req, res) => {
-    console.log('helo');
     if (req.isAuthenticated()) {
         console.log('login');
         const { _id, username, role, email } = req.user;
@@ -202,7 +201,7 @@ userRouter.put('/updatereelsanddemos', (req, res) => {
 })
 userRouter.put('/update', (req, res) => {
     // const {id} = req.params
-    const { id, firstname, middlename, lastname, dob, csc, password } = req.body
+    const { id, firstname, middlename, lastname, dob, csc, password, user_public } = req.body
     User.findOne({ _id: id }, (err, user) => {
         if (err) {
             console.log(err);
@@ -231,6 +230,7 @@ userRouter.put('/update', (req, res) => {
                 if (password !== "") {
                     user.password = password
                 }
+                user.user_public=user_public
                 user.save((err, updatedUser) => {
                     if (err) {
                         console.log(err);

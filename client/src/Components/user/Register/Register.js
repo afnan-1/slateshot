@@ -15,6 +15,7 @@ function Register() {
     const [userErr, setUserErr] = useState(null)
     const [user, setUser] = useState({
         firstname: "", middlename: "", lastname: "", jadu: '123', email: "", age: "N", gender: "",
+        user_public:false,
         username: "", password: "", dob: { day: "", year: "", month: "" },
         csc: { country: "", city: "", state: "" }
     });
@@ -55,6 +56,9 @@ function Register() {
     }
     const cscCity = (e) => {
         setUser({ ...user, csc: { ...user.csc, city: e } })
+    }
+    const userPublic=()=>{
+        setUser({...user,user_public:!user.user_public})
     }
     const resetForm = () => {
         authContext.setEmail('')
@@ -105,6 +109,7 @@ function Register() {
                 <Step component={FinalStep} onChange={onChange} user={user}
                     day={day} year={year} month={month}
                     country={cscCountry} city={cscCity}
+                    user_public={userPublic}
                     region={cscRegion} checkbox={handleCheckbox}
                     showerr={showerr} userErr={userErr} onSubmit={onSubmit}
                     emailErr={emailErr} />

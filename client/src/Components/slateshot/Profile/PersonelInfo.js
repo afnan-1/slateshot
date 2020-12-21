@@ -46,7 +46,12 @@ function PersonelInfo(props) {
                 <p className="mb-2"><i className="fas fa-venus-mars fa-fw" /> Gender - {props.gender.charAt(0).toUpperCase() + props.gender.slice(1)}</p>
                 <p className="mb-2"><i className="fas fa-calendar-alt fa-fw" /> Date of Birth - {props.month}-{props.day}-{props.year}</p>
                 <p className="mb-2"><i className="fas fa-map-marker-alt fa-fw" /> {props.city}, {props.state}, {props.country}</p>
+                <div>
+                <a href=''>More at IMDB</a>
+            <p className="mb-2"><i className='fa fa-phone-alt fa-fw' ></i> Contact Info: <a href="">Agent, Manager</a></p>
             </div>
+            </div>
+            
         </div>
     )
 }
