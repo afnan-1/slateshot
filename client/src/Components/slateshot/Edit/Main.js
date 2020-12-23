@@ -57,6 +57,13 @@ function Main(props) {
                                  </a>
                               </div>
                            </div>
+                           <div class="p-3 mb-4">
+                              <h1 class="h6 mb-3 mt-0 font-weight-bold text-gray-900">Biography</h1>
+                              <div>
+                                 <p class="mb-0 text-gray-600">An American and Canadian actor, producer and semi-retired professional wrestler, signed with WWE.  Johnson is half-Black and half-Samoan. His father, Rocky Johnson, is a Black Canadian, from Nova Scotia, and part of the first Black tag team champions in WWE history back when it was known as the WWF along with Tony Atlas. His mother is Samoan and the daughter of Peter Maivia, who was also a pro wrestler. Maivia's wife, Lia Maivia, was one of wrestling's few female promoters, taking over Polynesian Pacific Pro Wrestling after her husband's death in 1982, until 1988. Through his mother, he is ...
+                                 </p>
+                              </div>
+                           </div>
                       </div>
                     </div>
                     

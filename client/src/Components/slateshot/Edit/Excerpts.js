@@ -104,7 +104,7 @@ function Excerpts() {
     return (
         <>
             <button className="btn btn btn-dark" onClick={handleOpenModal}>
-                Add Excerpts
+                Add
             </button>
             <Modal
                 isOpen={showModal}

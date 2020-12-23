@@ -2,11 +2,12 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 var cors = require('cors')
 const app = express();
+app.use(cors());
+const passport = require("passport");
 const cookieParser = require('cookie-parser')
 const moongose = require('mongoose');
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors())
 app.use(fileUpload());
 
 moongose.connect('mongodb://localhost:27017/auth', { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log('connect to database'));
@@ -85,4 +86,5 @@ app.post('/uploadreels',(req,res)=>{
 })
 const userRouter = require('./routes/User')
 app.use('/user', userRouter)
+// app.use(passport.initialize());
 app.listen(5000, () => console.log('Server Started...'));

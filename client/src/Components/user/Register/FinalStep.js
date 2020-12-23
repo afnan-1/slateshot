@@ -133,7 +133,7 @@ function FinalStep(props) {
                     <Button
                         type="submit"
                         fullWidth
-                        disabled={user.username === '' || user.email === '' || user.gender === '' || authContext.email === '' || legal_checkbox===false ? true : false}
+                        disabled={user.username === '' || legal_checkbox===false ? true : false}
                         variant="contained"
                         color="primary"
                         className={classes.submit}

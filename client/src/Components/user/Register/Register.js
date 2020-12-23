@@ -21,9 +21,11 @@ function Register() {
     });
     useEffect(() => {
         if (localStorage.getItem('facebookemail')) {
+            authContext.setEmail(JSON.parse(localStorage.getItem('facebookemail')))
             setUser({ ...user, email: JSON.parse(localStorage.getItem('facebookemail')) })
         }
         else if (localStorage.getItem('googleemail')) {
+            authContext.setEmail(JSON.parse(localStorage.getItem('googleemail')))
             setUser({ ...user, email: JSON.parse(localStorage.getItem('googleemail')) })
         }
     }, [])

@@ -49,11 +49,11 @@ function Biography(props) {
             </div>
             <div className="bg-white p-3 widget shadow rounded mb-4">
                 <h1 className="h6 d-inline mb-3 mt-0 font-weight-bold text-gray-900">Events</h1>
-                <button className='float-right btn btn-dark'>Add Events</button>
+                <button className='float-right btn btn-dark'>Events</button>
             </div>
             <div className="bg-white p-3 widget shadow rounded mb-4">
                 <h1 className="h6 d-inline mb-3 mt-0 font-weight-bold text-gray-900">Projects</h1>
-                <button className='float-right btn btn-dark'>Add Projects</button>
+                <button className='float-right btn btn-dark'>Projects</button>
             </div>
         </>
     )

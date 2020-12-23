@@ -101,9 +101,20 @@ label{
 .google-login{
     color: white !important;
     background-color: rgb(201, 31, 31) !important;
+    width: 210px;
 }
 .facebook{
     background-color:#3b5998;
     color: white !important;
     font-size: 0.76em;
+    width: 210px;
 }
+.instagram__button{
+/* width:  !important; */
+/* width: 100%; */
+border: #3b5998;
+border-radius: 30px;
+}
+/* .twitter__button{
+    width: 20px;
+} */

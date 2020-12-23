@@ -99,7 +99,7 @@ function VoiceOver() {
     return (
         <>
              <button className="btn btn btn-dark" onClick={handleOpenModal}>
-                Add Audio
+                Audio
             </button>
             <Modal
                 isOpen={showModal}

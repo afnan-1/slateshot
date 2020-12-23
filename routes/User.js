@@ -278,4 +278,12 @@ userRouter.put('/delete', (req, res) => {
         }
     })
 })
+
+userRouter.get("/auth/instagram", passport.authenticate("instagram"));
+userRouter.get("/auth/instagram/callback",
+    passport.authenticate("instagram"),
+        (req, res) => {
+            console.log(req,res);
+            res.redirect("/");
+        });
 module.exports = userRouter;

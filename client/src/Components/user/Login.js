@@ -19,6 +19,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AuthServices from '../../AuthServices/AuthServices';
+import InstaButton from './InstaButton';
+import InstagramLogin from './InstagramLogin'
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
@@ -54,10 +56,10 @@ const Login = props => {
         authContext.setUser(user)
       })
     }
-    // if(localStorage.getItem("googleusername") || localStorage.getItem("facebookusername"))
-    // {
-    //   history.push("/edit")
-    // }
+    if(localStorage.getItem("googleusername") || localStorage.getItem("facebookusername"))
+    {
+      history.push("/edit")
+    }
   }, [])
   const onSubmit = e => {
     e.preventDefault();
@@ -138,6 +140,7 @@ const Login = props => {
             <div className="col btn btn-lg my-2">
               <GoogleLoginComponent />
               <FacebookLogin />
+              <InstagramLogin />
             </div>
           </form>
         </div>

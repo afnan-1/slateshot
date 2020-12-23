@@ -13,6 +13,10 @@ export default {
                 return { isAuthenticated : false, user : {username : "",role : ""}};
         })
     },
+    instagramLogin:user=>{
+        return fetch('http://localhost:5000/user/auth/instagram/callback',{
+        })
+    },
     loginGoogle:(user)=>{
         return fetch('/user/logingoogle',{
             method:'post',
