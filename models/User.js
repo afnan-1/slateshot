@@ -66,6 +66,12 @@ const UserSchema = new mongoose.Schema({
     },
     user_public:{
         type:Boolean
+    },
+    pic:{
+        type:String
+    },
+    video:{
+        type:String
     }
 });
 UserSchema.pre('save', function (next) {

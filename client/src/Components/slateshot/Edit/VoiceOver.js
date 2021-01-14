@@ -87,7 +87,6 @@ function VoiceOver() {
             }
             AuthServices.updateReelsDemos(user)
                 .then(data => {
-                    console.log(data);
                     handleCloseModal()
                     authContext.setUser(data)
                 })

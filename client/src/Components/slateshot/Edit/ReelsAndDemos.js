@@ -88,13 +88,10 @@ function ReelsAndDemos() {
             }
             AuthServices.updateReelsDemos(user)
                 .then(data => {
-                    console.log(data);
                     handleCloseModal()
                     authContext.setUser(data)
                 })
                 .then(res => res)
-            // console.log('key');
-            // setVideo(String(filePath).split('s/')[0] + 's/' + user.email + '/video.mp4')
         } catch (err) {
            
         }

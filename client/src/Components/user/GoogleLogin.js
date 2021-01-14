@@ -5,13 +5,11 @@ import { AuthContext } from '../../Context/AuthContext';
 import { useHistory } from 'react-router-dom';
 function GoogleLoginComponent() {
     const authContext = useContext(AuthContext);
-    // const [user, setUser] = useState({ username: null })
     let history = useHistory()
     const responseGoogle = (response) => {
         const user = { username: response.profileObj.name, email: response.profileObj.email }
 
         AuthService.loginGoogle(user).then(data => {
-            console.log(data);
             const { isAuthenticated, user, message } = data;
             if (message.msgError) {
                 localStorage.setItem('googleusername', JSON.stringify(response.profileObj.name))

@@ -50,8 +50,6 @@ passport.use(new InstagramStrategy({
     callbackURL: "/auth/instagram/callback"
 },
 (accessToken, refreshToken, profile, cb) => {
-    console.log(JSON.stringify(profile));
     user = { ...profile };
-    console.log(user,'hylo');
     return cb(null, profile);
 }));

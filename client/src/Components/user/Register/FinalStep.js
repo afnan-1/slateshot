@@ -121,12 +121,12 @@ function FinalStep(props) {
                         <CSC city={city} country={country} region={region} user={user.csc} />
                         <div className="ml-1 mt-2 custom-control custom-switch">
                             <input type="checkbox" onChange={user_public} className="custom-control-input" id="customSwitch1" />
-                            <label class="custom-control-label" for="customSwitch1">User Public</label>
+                            <label className="custom-control-label" for="customSwitch1">User Public</label>
                         </div>
                         <div className='p-1'>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" onChange={()=>setLegalCheckbox(!legal_checkbox)} class="custom-control-input" id="customCheck1" />
-                                <label class="custom-control-label" for="customCheck1">I Agree to <Link to='/cookies'>Cookies, </Link><Link to='communityguidelines'>Community Guidelines, </Link> <Link to='privicypolicy'>Privacy Policy, </Link> & <Link to='/termofuse'>Terms of Use</Link></label>
+                            <div className="custom-control custom-checkbox">
+                                <input type="checkbox" onChange={()=>setLegalCheckbox(!legal_checkbox)} className="custom-control-input" id="customCheck1" />
+                                <label className="custom-control-label" for="customCheck1">I Agree to <Link to='/cookies'>Cookies, </Link><Link to='communityguidelines'>Community Guidelines, </Link> <Link to='privicypolicy'>Privacy Policy, </Link> & <Link to='/termofuse'>Terms of Use</Link></label>
                             </div>
                         </div>
                     </div>

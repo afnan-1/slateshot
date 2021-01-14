@@ -36,7 +36,6 @@ function BiographyThumbnail(props) {
     }
   }
   const deleteReels = () => {
-    console.log(reels);
     AuthServices.delete(reels).then(data => {
       authContext.setUser(data)
     })

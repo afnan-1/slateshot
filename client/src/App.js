@@ -1,6 +1,6 @@
 
 import React, { useContext, useEffect, useState } from 'react';
-import Slateshot from './Components/slateshot';
+import './Components/slateshot/slateshot.css'
 import Navbar from './Components/Navbar';
 import {
   BrowserRouter as Router,
@@ -27,13 +27,11 @@ function App() {
   const fusername = JSON.parse(localStorage.getItem('facebookusername'))
   const femail = JSON.parse(localStorage.getItem('facebookemail'))
   const [users, setUsers] = useState(null)
-  console.log(authContext.isAuthenticated);
 
   useEffect(() => {
     AuthServices.profile().then(data => {
       setUsers(data)
     })
-    console.log(authContext);
     if (localStorage.getItem('googleusername')) {
       const user = {
         username: gusername,
@@ -60,7 +58,6 @@ function App() {
       }
       AuthServices.loginFacebook(user).then(data => {
         const { isAuthenticated, user, message } = data;
-        console.log(user);
         if (message.msgError) {
           // history.push('/register')
         }
@@ -87,7 +84,7 @@ function App() {
         <Route path='/login'>
           <Login />
         </Route>
-        <Route exact path='/'>
+        <Route exact path='/uploadingprocess'>
           <Dashboard />
         </Route>
         <Route path={`/thumbnail`}>

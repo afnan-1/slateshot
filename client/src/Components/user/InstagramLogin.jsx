@@ -11,9 +11,7 @@ import TwitterLogin from "react-twitter-login";
 function InstagramLoginReact() {
     const history=useHistory()
     const responseInstagram = (err,data) => {
-      console.log(err,'error');
-      console.log(data,'user');
-      // AuthServices.instagramLogin().then(data=>console.log(data))
+    
     }
     const authHandler = (err, data) => {
       console.log(err, data);

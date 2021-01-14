@@ -74,7 +74,6 @@ function Register() {
     }
     const onSubmit = async e => {
         e.preventDefault();
-        console.log('helo');
         setEmailErr(false)
         if (localStorage.getItem("facebookusername") || localStorage.getItem("googleusername")) {
             authContext.setEmail(user.email)

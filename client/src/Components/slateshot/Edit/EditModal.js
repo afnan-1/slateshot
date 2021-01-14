@@ -41,14 +41,14 @@ function EditModal(props) {
     const { dob, csc } = props
     const authContext = useContext(AuthContext)
     const loggedUser = authContext.user
-    const { _id, firstname, middlename, lastname, email } = loggedUser
+    const { _id, firstname, middlename, lastname, email, dob_year, dob_month, dob_day } = loggedUser
     const classes = useStyles();
     const [showModal, setShowModal] = useState(false)
     const [user, setUser] = useState({
         id: authContext.user._id,
         user_public:loggedUser.user_public,
         firstname: firstname, middlename: middlename, lastname: lastname, email: email, age: "N", gender: "", reelsAndDemos: [],
-        username: "", password: "", dob: { dob_day: authContext.user.dob_day, dob_year: authContext.user.dob_year, dob_month: authContext.user.dob_month },
+        username: "", password: "", dob: { dob_day:dob_day, dob_year: dob_year, month: dob_month },
         csc: { country: loggedUser.csc_country, city: loggedUser.csc_city, state: loggedUser.csc_state }
     });
     useEffect(() => {
@@ -56,7 +56,7 @@ function EditModal(props) {
             id: authContext.user._id,
             user_public:loggedUser.user_public,
             firstname: firstname, middlename: middlename, lastname: lastname, email: email, age: "N", gender: "", reelsAndDemos: [],
-            username: "", password: "", dob: { dob_day: authContext.user.dob_day, dob_year: authContext.user.dob_year, dob_month: authContext.user.dob_month },
+            username: "", password: "", dob: { dob_day:dob_day, dob_year: dob_year, month: dob_month },
             csc: { country: loggedUser.csc_country, city: loggedUser.csc_city, state: loggedUser.csc_state }
         })
     }, [loggedUser])
@@ -67,22 +67,22 @@ function EditModal(props) {
         setShowModal(false)
     }
     const handleEdit = () => {
-        console.log(user);
+        dob(user.dob)
+        csc(user.csc)
         AuthServices.update(user).then(data => {
             console.log('data', data);
         })
-        dob(user.dob)
-        csc(user.csc)
+      
         setShowModal(false)
     }
     const day = (e) => {
-        setUser({ ...user, dob: { ...user.dob, day: e } })
+        setUser({ ...user, dob: { ...user.dob, dob_day: e } })
     }
     const month = (e) => {
         setUser({ ...user, dob: { ...user.dob, month: parseInt(e) + 1 } })
     }
     const year = (e) => {
-        setUser({ ...user, dob: { ...user.dob, year: e } })
+        setUser({ ...user, dob: { ...user.dob, dob_year: e } })
     }
     const country = (e) => {
         setUser({ ...user, csc: { ...user.csc, country: e } })
@@ -98,7 +98,6 @@ function EditModal(props) {
     }
     const userPublic=()=>{
         setUser({...user,user_public:!user.user_public})
-        // authContext.setUser({...loggedUser, user_public:!loggedUser.user_public})
     }
     return (
         <>
@@ -121,7 +120,7 @@ function EditModal(props) {
                 </div>
                 <div className="ml-3 mt-2 custom-control custom-switch">
                     <input type="checkbox" onChange={userPublic} checked={user.user_public} className="custom-control-input" id="customSwitch1" />
-                    <label class="custom-control-label" for="customSwitch1">User Public</label>
+                    <label className="custom-control-label" for="customSwitch1">User Public</label>
                 </div>
                 <div className="px-3">
                     <Button

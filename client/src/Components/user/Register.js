@@ -11,10 +11,6 @@ const Register = props => {
     let history = useHistory()
 
     useEffect(() => {
-        // if (localStorage.getItem('facebookemail')){
-        //     console.log('helo');
-        //     setUser({...user,email:JSON.parse(localStorage.getItem('facebookemail'))})
-        // }
         return () => {
             clearTimeout(timerID);
         }

@@ -1,0 +1,7 @@
+install nodejs server   https://nodejs.org/en/download/
+install mongodb server https://www.mongodb.com/try/download/community?tck=docs_server
+up the server.
+in slateshot folder. open cmd and type command- npm i
+then go into client folder open cmd type command- npm i
+then type- npm start
+go back into slateshot folder type command- npm run server

@@ -72,39 +72,39 @@ function Index(props) {
                             </small>
                           </p>
                         </div>
-                        <div class="row mr-2">
+                        <div className="row mr-2">
                           <a
                             href="#"
-                            class="btn btn-sm mr-1 btn-primary btn-circle"
+                            className="btn btn-sm mr-1 btn-primary btn-circle"
                           >
-                            <i class="fab fa-facebook-f"></i>
+                            <i className="fab fa-facebook-f"></i>
                           </a>
                           <a
                             href="#"
-                            class="btn btn-sm mr-1 btn-danger btn-circle"
+                            className="btn btn-sm mr-1 btn-danger btn-circle"
                           >
-                            <i class="fab fa-youtube"></i>
+                            <i className="fab fa-youtube"></i>
                           </a>
                           <a
                             href="#"
-                            class="btn btn-sm mr-1 btn-warning btn-circle"
+                            className="btn btn-sm mr-1 btn-warning btn-circle"
                           >
-                            <i class="fab fa-snapchat-ghost"></i>
+                            <i className="fab fa-snapchat-ghost"></i>
                           </a>
                           <a
                             href="#"
-                            class="btn btn-sm mr -1 btn-info btn-circle"
+                            className="btn btn-sm mr -1 btn-info btn-circle"
                           >
-                            <i class="fab fa-twitter"></i>
+                            <i className="fab fa-twitter"></i>
                           </a>
                         </div>
                       </div>
-                      <div class="p-3 mb-4">
-                        <h1 class="h6 mb-3 mt-0 font-weight-bold text-gray-900">
+                      <div className="p-3 mb-4">
+                        <h1 className="h6 mb-3 mt-0 font-weight-bold text-gray-900">
                           Biography
                         </h1>
                         <div>
-                          <p class="mb-0 text-gray-600">
+                          <p className="mb-0 text-gray-600">
                             An American and Canadian actor, producer and
                             semi-retired professional wrestler, signed with WWE.
                             Johnson is half-Black and half-Samoan. His father,

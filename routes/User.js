@@ -74,7 +74,6 @@ userRouter.post('/register', (req, res) => {
 })
 userRouter.post('/login', passport.authenticate('local', { session: false }), (req, res) => {
     if (req.isAuthenticated()) {
-        console.log('login');
         const { _id, username, role, email } = req.user;
         const token = signToken(_id);
         res.cookie('access_token', token, { httpOnly: true, sameSite: true });
@@ -102,7 +101,6 @@ userRouter.get('/profile', (req, res) => {
         users.forEach(function (user) {
             userMap[user._id] = user;
         });
-        console.log(userMap);
         res.send(userMap);
     });
 });
@@ -200,7 +198,6 @@ userRouter.put('/updatereelsanddemos', (req, res) => {
     })
 })
 userRouter.put('/update', (req, res) => {
-    // const {id} = req.params
     const { id, firstname, middlename, lastname, dob, csc, password, user_public } = req.body
     User.findOne({ _id: id }, (err, user) => {
         if (err) {
@@ -215,8 +212,8 @@ userRouter.put('/update', (req, res) => {
                 const csc_country = csc.country
                 const csc_city = csc.city
                 const csc_state = csc.state
-                const dob_day = dob.day
-                const dob_year = dob.year
+                const dob_day = dob.dob_day
+                const dob_year = dob.dob_year
                 const dob_month = dob.month
                 user.firstname = firstname
                 user.middlename = middlename

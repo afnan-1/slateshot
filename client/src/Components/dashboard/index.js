@@ -6,7 +6,7 @@ function Dashboard() {
 
     const { isAuthenticated } = useContext(AuthContext);
     const [auth, setAuth] = useState(isAuthenticated)
-    const [seconds, setSeconds] = useState(15);
+    const [seconds, setSeconds] = useState(5);
     let history = useHistory()
     useEffect(() => {
         if (seconds > 0) {
@@ -22,7 +22,7 @@ function Dashboard() {
     return (
         <div className='container'>
             {auth && localStorage.getItem('timer') ? <div className='mx-auto col-6'> Please Wait,{seconds} Seconds Your SlateShot is Uploading </div> : ""}
-            {seconds === 0 && history.push('/profile')}
+            {seconds === 0?history.push('/edit'):''}
         </div>
     )
 }

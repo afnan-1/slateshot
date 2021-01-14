@@ -31,11 +31,9 @@ function PersonelInfo(props) {
     return (
         <div className="col-xl-3 col-lg-3">
             <div className="bg-white p-3 widget shadow rounded mb-4">
-                {console.log(photo)}
                 <video
                     poster={photo}
                     height='375px'
-                    // width='100%'
                     style={{ width: '100%', objectFit: 'cover' }}
                     onClick={video ? handleClick : dumb}>
                     <source src={`/uploads/${props.email}/video.mp4`} type="video/mp4">

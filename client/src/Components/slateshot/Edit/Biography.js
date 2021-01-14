@@ -37,7 +37,6 @@ function Biography(props) {
                 <h1 className="h6 d-inline mb-3 mt-0 font-weight-bold text-gray-900">Voice Over and Score</h1>
                 <span className='float-right'><VoiceOver /></span>
                 <div className=" row mt-3">
-                    {console.log(props.user.voiceover)}
                     {props.user.voiceover ? props.user.voiceover.map((v, i) => {
                         return <React.Fragment key={i}>
                             <BiographyThumbnail voiceoverTitle={v[0]} voiceTitle2={v[2]} keyvoiceover={i} audio={v[1]} email={props.user.email} />

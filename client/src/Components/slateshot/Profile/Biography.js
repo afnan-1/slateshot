@@ -1,7 +1,6 @@
 import React from 'react'
 import BiographyThumbnail from './BiographyThumbnail'
 function Biography(props) {
-    console.log(props.user);
     return (
         <>
             <div className="bg-white p-3 widget shadow rounded mb-4">

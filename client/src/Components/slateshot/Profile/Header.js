@@ -8,11 +8,11 @@ function Header() {
       <i className="fa fa-bars" />
     </button>
     {/* Topbar Search */}
-    <p class="sidebar-brand d-flex align-items-center justify-content-start pt-2 pb-1 mt-2" href="index.html">
-               <div class="sidebar-brand-icon">
+    <p className="sidebar-brand d-flex align-items-center justify-content-start pt-2 pb-1 mt-2" href="index.html">
+               <div className="sidebar-brand-icon">
                   <img src="/img/logo-icon.png" alt=""/>
                </div>
-               <div class="sidebar-brand-text mx-3"><img src="/img/logo.png" alt=""/></div>
+               <div className="sidebar-brand-text mx-3"><img src="/img/logo.png" alt=""/></div>
             </p>
     <form className="d-none d-sm-inline-block form-inline mr-auto my-2 my-md-0 mw-100 navbar-search">
       <div className="input-group">

@@ -21,12 +21,15 @@
     "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.15",
+    "node-video-duration": "^1.0.1",
     "passport": "^0.4.1",
     "passport-instagram": "^1.0.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "react-instagram-login": "^1.4.0",
-    "react-instagram-oauth": "0.0.3"
+    "react-instagram-oauth": "0.0.3",
+    "react-player": "^2.7.2",
+    "video-react": "^0.14.1"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",

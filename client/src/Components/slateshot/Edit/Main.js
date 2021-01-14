@@ -41,26 +41,26 @@ function Main(props) {
                           <h3 className="text-gray-900 mb-0 mt-0 font-weight-bold">{authContext.user.firstname} {authContext.user.lastname}</h3>
                           <p className="mb-0 text-gray-800"><small className="text-muted"><i className="fas fa-user-circle fa-fw fa-sm mr-1" /> {authContext.user.actor}</small></p>
                         </div>
-                        <div class="row d-flex align-items-center justify-content-between py-3 px-4">
-                              <div class="row mr-2">
-                                 <a href="#" class="btn btn-sm mr-1 btn-primary btn-circle">
-                                 <i class="fab fa-facebook-f"></i>
+                        <div className="row d-flex align-items-center justify-content-between py-3 px-4">
+                              <div className="row mr-2">
+                                 <a href="#" className="btn btn-sm mr-1 btn-primary btn-circle">
+                                 <i className="fab fa-facebook-f"></i>
                                  </a>
-                                 <a href="#" class="btn btn-sm mr-1 btn-danger btn-circle">
-                                 <i class="fab fa-youtube"></i>
+                                 <a href="#" className="btn btn-sm mr-1 btn-danger btn-circle">
+                                 <i className="fab fa-youtube"></i>
                                  </a>
-                                 <a href="#" class="btn btn-sm mr-1 btn-warning btn-circle">
-                                 <i class="fab fa-snapchat-ghost"></i>
+                                 <a href="#" className="btn btn-sm mr-1 btn-warning btn-circle">
+                                 <i className="fab fa-snapchat-ghost"></i>
                                  </a>
-                                 <a href="#" class="btn btn-sm mr -1 btn-info btn-circle">
-                                 <i class="fab fa-twitter"></i>
+                                 <a href="#" className="btn btn-sm mr -1 btn-info btn-circle">
+                                 <i className="fab fa-twitter"></i>
                                  </a>
                               </div>
                            </div>
-                           <div class="p-3 mb-4">
-                              <h1 class="h6 mb-3 mt-0 font-weight-bold text-gray-900">Biography</h1>
+                           <div className="p-3 mb-4">
+                              <h1 className="h6 mb-3 mt-0 font-weight-bold text-gray-900">Biography</h1>
                               <div>
-                                 <p class="mb-0 text-gray-600">An American and Canadian actor, producer and semi-retired professional wrestler, signed with WWE.  Johnson is half-Black and half-Samoan. His father, Rocky Johnson, is a Black Canadian, from Nova Scotia, and part of the first Black tag team champions in WWE history back when it was known as the WWF along with Tony Atlas. His mother is Samoan and the daughter of Peter Maivia, who was also a pro wrestler. Maivia's wife, Lia Maivia, was one of wrestling's few female promoters, taking over Polynesian Pacific Pro Wrestling after her husband's death in 1982, until 1988. Through his mother, he is ...
+                                 <p className="mb-0 text-gray-600">An American and Canadian actor, producer and semi-retired professional wrestler, signed with WWE.  Johnson is half-Black and half-Samoan. His father, Rocky Johnson, is a Black Canadian, from Nova Scotia, and part of the first Black tag team champions in WWE history back when it was known as the WWF along with Tony Atlas. His mother is Samoan and the daughter of Peter Maivia, who was also a pro wrestler. Maivia's wife, Lia Maivia, was one of wrestling's few female promoters, taking over Polynesian Pacific Pro Wrestling after her husband's death in 1982, until 1988. Through his mother, he is ...
                                  </p>
                               </div>
                            </div>

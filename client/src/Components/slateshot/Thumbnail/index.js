@@ -48,7 +48,6 @@ function Index(props) {
     const dumb = () => {
     }
     const handleClick = () => {
-        console.log(videoRef);
         sethandle(!handle)
         if (video) {
             handle ? videoRef.current.pause() : videoRef.current.play()
