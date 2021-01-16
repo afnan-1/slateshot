@@ -28,6 +28,7 @@ function Index(props) {
   const [photo, setPhoto] = useState(null);
   const [video, setVideo] = useState(null);
   useEffect(() => {
+    videoRef.current.load()
     let mounted = true;
 
     if (localStorage.getItem("googleusername")) {
@@ -35,14 +36,13 @@ function Index(props) {
 
     if (localStorage.getItem("facebookusername")) {
     } else if (!isAuthenticated) {
-      // history.push("/login");
     }
     fetchData().then((items) => {
       if (mounted) {
       }
     });
     return () => (mounted = false);
-  });
+  },[]);
   // fetchData()
   async function fetchData() {
     await axios
@@ -54,9 +54,9 @@ function Index(props) {
         setPhoto(`/uploads/default/picture.jpg`);
       });
     await axios
-      .get(`http://localhost:3000/uploads/${user.email}/video.mp4`)
+      .get(`http://localhost:3000/uploads/${user.email}/${user.video}.mp4`)
       .then((response) => {
-        setVideo(`/uploads/${user.email}/video.mp4`);
+        setVideo(`/uploads/${user.email}/${user.video}.mp4`);
       })
       .catch((error) => {
         setVideo(null);
@@ -68,7 +68,6 @@ function Index(props) {
       setVideo(video);
       try {
         handle ? e.target.pause() : e.target.play();
-        // console.log(videoRef.current.duration)
       } catch (err) {}
     }
   };
@@ -88,7 +87,15 @@ function Index(props) {
       );
     } catch (err) {}
   };
-
+  const makeid = (length) => {
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
   const handleVideoUpload = async (e) => {
     var video = document.createElement("video");
     video.preload = "metadata";
@@ -101,19 +108,17 @@ function Index(props) {
         const formData = new FormData();
         formData.append("file", e.target.files[0]);
         formData.append("name", user.email);
+        formData.append('key', makeid(5))
         try {
           const res = await axios.post("/uploadphoto", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
           });
-
-          const { fileName, filePath } = res.data;
-          // setVideo(
-          //   String(filePath).split("s/")[0] + "s/" + user.email + "/video.mp4"
-          // );
-
-          // history.push("/uploadingprocess");
+          let { key, filePath } = res.data;
+            key = key + '.mp4'
+            setVideo(`/uploads/${user.email}/${key}`);
+            window.location.reload()
         } catch (err) {
           console.log(err);
         }
@@ -122,18 +127,7 @@ function Index(props) {
     video.src = URL.createObjectURL(e.target.files[0]);
     localStorage.setItem("timer", JSON.stringify(true));
   };
-  const dummyVideoElement = (videoFile) => {
-    return (
-      <video
-        id="video"
-        width="100%"
-        style={{ width: "100%", objectFit: "cover" }}
-        onClick={video ? handleClick : dumb}
-      >
-        <source src={props.src} type="video/mp4"></source>
-      </video>
-    );
-  };
+
   const dumb = () => {};
 
   return (
@@ -144,12 +138,13 @@ function Index(props) {
           height="300"
           id="video"
           width="100%"
-          // ref={videoRef}
+          ref={videoRef}
           style={{ width: "100%", objectFit: "cover" }}
           onClick={video ? handleClick : dumb}
         >
+          {console.log(video)}
           <source
-            src={video ? video : `/uploads/${user.email}/video.mp4`}
+            src={video ? video :`/uploads/${user.email}/${user.video}.mp4`}
             type="video/mp4"
           ></source>
         </video>

@@ -6,6 +6,7 @@ app.use(cors());
 const passport = require("passport");
 const cookieParser = require("cookie-parser");
 const moongose = require("mongoose");
+const User = require("./models/User")
 app.use(cookieParser());
 app.use(express.json());
 app.use(fileUpload());
@@ -25,10 +26,11 @@ app.post("/uploadphoto", (req, res) => {
   }
   const fs = require("fs");
   const file = req.files.file;
-  console.log(file);
+  const key = req.body.key;
   const name = req.body.name;
 
-
+if(!fs.existsSync(`./client/public/uploads/${name}`))
+{
   fs.mkdir(`./client/public/uploads/${name}`, function (err) {
     if (err) {
       console.log(err);
@@ -36,13 +38,14 @@ app.post("/uploadphoto", (req, res) => {
       console.log("New directory successfully created.");
     }
   });
+}
   file.mv(`${__dirname}/client/public/uploads/${name}/${file.name}`, (err) => {
     if (err) {
       console.error(err);
       return res.status(500).send(err);
     }
-    res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
     if (file.name.split(".")[1] !== "mp4") {
+     
       fs.rename(
         `./client/public/uploads/${name}/${file.name}`,
         `./client/public/uploads/${name}/picture.jpg`,
@@ -51,14 +54,26 @@ app.post("/uploadphoto", (req, res) => {
         }
       );
     } else {
+      User.findOne({ email: name }, (err, user) => {
+        if (err) {
+            console.log(err);
+        }
+          if (user) {
+            console.log('ok');
+              user.video = key
+              user.save()
+            }
+          }
+      )
       fs.rename(
         `./client/public/uploads/${name}/${file.name}`,
-        `./client/public/uploads/${name}/video.mp4`,
+        `./client/public/uploads/${name}/${key}.mp4`,
         function (err) {
           if (err) console.log("ERROR: " + err);
         }
       );
     }
+    res.json({ key: key, filePath: `/uploads/${file.name}` });
   });
 });
 

@@ -17,7 +17,7 @@ function Register() {
         firstname: "", middlename: "", lastname: "", jadu: '123', email: "", age: "N", gender: "",
         user_public:false,
         username: "", password: "", dob: { day: "", year: "", month: "" },
-        csc: { country: "", city: "", state: "" }
+        csc: { country: "", city: "", state: "" },video:""
     });
     useEffect(() => {
         if (localStorage.getItem('facebookemail')) {
